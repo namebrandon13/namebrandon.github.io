@@ -32,21 +32,21 @@
         const light = new THREE.AmbientLight(0xffffff, 1); // Ambient white light
         scene.add(light);
 
-        // 3. Set the background color to white
-        scene.background = new THREE.Color(0xffffff);
+        // 3. Set the background color to white (corrected placement)
+        scene.background = new THREE.Color(0xffffff); // Set background color to white
 
         // 4. Load a 3D Model (GLB)
         const loader = new THREE.GLTFLoader(); // For loading GLB models
-        loader.load('models/blasterA.glb', function(gltf) {
+        loader.load('models/your-3d-model.glb', function(gltf) {
             const model = gltf.scene;
-            model.scale.set(2, 2, 2);  // Adjust the model's size
+            model.scale.set(10, 10, 10);  // Adjust the model's size (scale)
             scene.add(model);
         }, undefined, function(error) {
             console.error(error);  // Check if the model is loaded correctly
         });
 
         // 5. Camera Position
-        camera.position.z = 10; // Move the camera back a bit
+        camera.position.z = 20; // Move the camera further back to ensure visibility
 
         // 6. Animation Loop (Rotate the model)
         function animate() {
@@ -59,6 +59,9 @@
                     child.rotation.y += 0.01;
                 }
             });
+
+            // Ensure the background remains white
+            renderer.clearColor();
 
             renderer.render(scene, camera);
         }
