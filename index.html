@@ -32,37 +32,27 @@
         const light = new THREE.AmbientLight(0xffffff, 1); // Ambient white light
         scene.add(light);
 
-        // 3. Set the background color to white (corrected placement)
+        // 3. Set the background color to white (confirmed)
         scene.background = new THREE.Color(0xffffff); // Set background color to white
 
-        // 4. Load a 3D Model (GLB)
-        const loader = new THREE.GLTFLoader(); // For loading GLB models
-        loader.load('models/your-3d-model.glb', function(gltf) {
-            const model = gltf.scene;
-            model.scale.set(10, 10, 10);  // Adjust the model's size (scale)
-            scene.add(model);
-        }, undefined, function(error) {
-            console.error(error);  // Check if the model is loaded correctly
-        });
+        // 4. Create a Simple Cube (Test Model Loading)
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Green color
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube); // Add cube to scene
 
         // 5. Camera Position
-        camera.position.z = 20; // Move the camera further back to ensure visibility
+        camera.position.z = 5; // Ensure camera is far enough to see the object
 
-        // 6. Animation Loop (Rotate the model)
+        // 6. Animation Loop (Rotate the cube)
         function animate() {
             requestAnimationFrame(animate);
 
-            // Rotate the model (if loaded)
-            scene.traverse(function(child) {
-                if (child.isMesh) {
-                    child.rotation.x += 0.01;
-                    child.rotation.y += 0.01;
-                }
-            });
+            // Rotate the cube
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
 
-            // Ensure the background remains white
-            renderer.clearColor();
-
+            // Render the scene
             renderer.render(scene, camera);
         }
         
