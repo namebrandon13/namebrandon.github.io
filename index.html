@@ -7,11 +7,11 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
         }
 
         canvas {
-            display: block; /* Remove margins */
+            display: block;
         }
     </style>
 </head>
@@ -19,7 +19,7 @@
 
     <!-- Three.js Scene -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.min.js"></script>
     <script>
         // 1. Scene Setup
         const scene = new THREE.Scene();
@@ -35,20 +35,20 @@
         // 3. Set the background color to white
         scene.background = new THREE.Color(0xffffff);
 
-        // 4. Load a 3D Model (GLB/FBX)
+        // 4. Load a 3D Model (GLB)
         const loader = new THREE.GLTFLoader(); // For loading GLB models
         loader.load('models/blasterA.glb', function(gltf) {
             const model = gltf.scene;
-            model.scale.set(2, 2, 2);  // Adjust the model's size if needed
+            model.scale.set(2, 2, 2);  // Adjust the model's size
             scene.add(model);
         }, undefined, function(error) {
-            console.error(error);
+            console.error(error);  // Check if the model is loaded correctly
         });
 
         // 5. Camera Position
-        camera.position.z = 5; // Move the camera back a bit
+        camera.position.z = 10; // Move the camera back a bit
 
-        // 6. Animation Loop (Rotate the model in the scene)
+        // 6. Animation Loop (Rotate the model)
         function animate() {
             requestAnimationFrame(animate);
 
