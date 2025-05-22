@@ -3,51 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brandon Rodrigues | Game Developer Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Brandon Rodrigues Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        canvas {
+            display: block; /* Remove margins */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Brandon Rodrigues</h1>
-        <p>Game Developer | 3D Artist | Freelance | MSc in Computer Games Technology</p>
-        <nav>
-            <ul>
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <!-- About Me Section -->
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Brief about your journey, achievements, education, etc.</p>
-    </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio">
-        <h2>My Portfolio</h2>
-        <p>Showcase your games, 3D models, VR projects, etc.</p>
-        <div class="portfolio-item">
-            <h3>Project Title</h3>
-            <p>Description and tech used in the project.</p>
-            <a href="https://github.com/your-repo-link" target="_blank">View on GitHub</a>
-        </div>
-        <!-- Add more portfolio items here -->
-    </section>
+    <!-- Three.js Scene -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>Email: brandon13111998@gmail.com</p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/brandon-rodrigues-935762180/">LinkedIn Profile</a></p>
-    </section>
+    <script>
+        // 1. Scene Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-    <footer>
-        <p>&copy; 2025 Brandon Rodrigues. All Rights Reserved.</p>
-    </footer>
+        // 2. Add Lighting
+        const light = new THREE.AmbientLight(0xffffff, 1); // Ambient white light
+        scene.add(light);
 
-    <script src="scripts.js"></script>
+        // 3. Set the background color to white
+        scene.background = new THREE.Color(0xffffff);
+
+        // 4. Load a 3D Model (GLB/FBX)
+        const loader = new THREE.GLTFLoader(); // For loading GLB models
+        loader.load('modelsblasterA.glb', function(gltf) {
+            const model = gltf.scene;
+            model.scale.set(2, 2, 2);  // Adjust the model's size if needed
+            scene.add(model);
+        }, undefined, function(error) {
+            console.error(error);
+        });
+
+        // 5. Camera Position
+        camera.position.z = 5; // Move the camera back a bit
+
+        // 6. Animation Loop (Rotate the model in the scene)
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the model (if loaded)
+            scene.traverse(function(child) {
+                if (child.isMesh) {
+                    child.rotation.x += 0.01;
+                    child.rotation.y += 0.01;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        // 7. Resize the window dynamically
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+
 </body>
 </html>
