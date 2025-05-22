@@ -13,6 +13,18 @@
         canvas {
             display: block;
         }
+
+        /* Display Position */
+        #position-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -20,6 +32,13 @@
     <!-- Three.js Scene -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.min.js"></script>
+
+    <!-- Position Info -->
+    <div id="position-info">
+        <p>Camera Position: X: 0, Y: 0, Z: 0</p>
+        <p>Cube Position: X: 0, Y: 0, Z: 0</p>
+    </div>
+
     <script>
         // 1. Scene Setup
         const scene = new THREE.Scene();
@@ -119,12 +138,27 @@
             }
         }
 
-        // 10. Render Loop
+        // 10. Update Position Info on the Screen
+        function updatePositionInfo() {
+            const cameraPosition = camera.position;
+            const cubePosition = cube.position;
+            const positionInfo = document.getElementById("position-info");
+
+            positionInfo.innerHTML = `
+                <p>Camera Position: X: ${cameraPosition.x.toFixed(2)}, Y: ${cameraPosition.y.toFixed(2)}, Z: ${cameraPosition.z.toFixed(2)}</p>
+                <p>Cube Position: X: ${cubePosition.x.toFixed(2)}, Y: ${cubePosition.y.toFixed(2)}, Z: ${cubePosition.z.toFixed(2)}</p>
+            `;
+        }
+
+        // 11. Render Loop
         function animate() {
             requestAnimationFrame(animate);
 
             // Update movement
             updateMovement();
+
+            // Update position info on the screen
+            updatePositionInfo();
 
             // Render the scene
             renderer.render(scene, camera);
@@ -132,7 +166,7 @@
 
         animate();
 
-        // 11. Resize the window dynamically
+        // 12. Resize the window dynamically
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
