@@ -51,7 +51,7 @@
         const light = new THREE.AmbientLight(0xffffff, 1); // Ambient white light
         scene.add(light);
 
-        // 3. Set the background color to white (confirmed)
+        // 3. Set the background color to white
         scene.background = new THREE.Color(0xffffff); // Set background color to white
 
         // 4. Create a Simple Cube (Test Model Loading)
@@ -61,7 +61,7 @@
         scene.add(cube); // Add cube to scene
 
         // 5. Camera Position
-        camera.position.z = 5; // Ensure camera is far enough to see the object
+        camera.position.z = 5; // Initial camera position
 
         // 6. Stop Cube Rotation
         cube.rotation.set(0, 0, 0); // Stop the rotation of the cube
@@ -72,8 +72,8 @@
         let moveLeft = false;
         let moveRight = false;
 
-        // Movement Speed (Slower Movement)
-        const speed = 0.01;  // Lowered the speed to make the movement slower
+        // Movement Speed
+        const speed = 0.05;  // Slow movement speed
 
         // 8. Keyboard Controls (Arrow Keys)
         function onKeyDown(event) {
@@ -115,26 +115,24 @@
 
         // 9. Update Camera Position and Move in Space
         function updateMovement() {
-            const direction = new THREE.Vector3();
-
+            // Move camera forward
             if (moveForward) {
-                direction.set(0, 0, -1).applyQuaternion(camera.rotation); // Move forward
-                camera.position.add(direction.multiplyScalar(speed));
+                camera.position.z -= speed; // Move forward along Z-axis
             }
 
+            // Move camera backward
             if (moveBackward) {
-                direction.set(0, 0, 1).applyQuaternion(camera.rotation); // Move backward
-                camera.position.add(direction.multiplyScalar(speed));
+                camera.position.z += speed; // Move backward along Z-axis
             }
 
+            // Move camera left
             if (moveLeft) {
-                direction.set(-1, 0, 0).applyQuaternion(camera.rotation); // Move left
-                camera.position.add(direction.multiplyScalar(speed));
+                camera.position.x -= speed; // Move left along X-axis
             }
 
+            // Move camera right
             if (moveRight) {
-                direction.set(1, 0, 0).applyQuaternion(camera.rotation); // Move right
-                camera.position.add(direction.multiplyScalar(speed));
+                camera.position.x += speed; // Move right along X-axis
             }
         }
 
