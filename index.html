@@ -37,7 +37,7 @@
 
         // 4. Load a 3D Model (GLB/FBX)
         const loader = new THREE.GLTFLoader(); // For loading GLB models
-        loader.load('modelsblasterA.glb', function(gltf) {
+        loader.load('models/blasterA.glb', function(gltf) {
             const model = gltf.scene;
             model.scale.set(2, 2, 2);  // Adjust the model's size if needed
             scene.add(model);
