@@ -61,7 +61,7 @@
         scene.add(cube); // Add cube to scene
 
         // 5. Camera Position
-        camera.position.z = 5; // Initial camera position
+        camera.position.z = 5; // Ensure camera is far enough to see the object
 
         // 6. Stop Cube Rotation
         cube.rotation.set(0, 0, 0); // Stop the rotation of the cube
@@ -71,9 +71,16 @@
         let moveBackward = false;
         let moveLeft = false;
         let moveRight = false;
+        let rotateLeft = false;
+        let rotateRight = false;
+        let rotateUp = false;
+        let rotateDown = false;
 
         // Movement Speed
         const speed = 0.05;  // Slow movement speed
+
+        // Rotation Speed (for rotating the camera)
+        const rotationSpeed = 0.02;
 
         // 8. Keyboard Controls (Arrow Keys)
         function onKeyDown(event) {
@@ -86,9 +93,17 @@
                     break;
                 case 37: // Left Arrow
                     moveLeft = true;
+                    rotateLeft = true;  // Rotate camera left
                     break;
                 case 39: // Right Arrow
                     moveRight = true;
+                    rotateRight = true; // Rotate camera right
+                    break;
+                case 87: // W key - Rotate camera up
+                    rotateUp = true;
+                    break;
+                case 83: // S key - Rotate camera down
+                    rotateDown = true;
                     break;
             }
         }
@@ -103,9 +118,17 @@
                     break;
                 case 37: // Left Arrow
                     moveLeft = false;
+                    rotateLeft = false;  // Stop rotating camera left
                     break;
                 case 39: // Right Arrow
                     moveRight = false;
+                    rotateRight = false; // Stop rotating camera right
+                    break;
+                case 87: // W key
+                    rotateUp = false;
+                    break;
+                case 83: // S key
+                    rotateDown = false;
                     break;
             }
         }
@@ -113,16 +136,30 @@
         window.addEventListener('keydown', onKeyDown, false);
         window.addEventListener('keyup', onKeyUp, false);
 
-        // 9. Update Camera Position and Move in Space
+        // 9. Mouse Event for Moving Forward
+        let isMouseClicked = false;
+
+        function onMouseClick(event) {
+            // Only move the camera forward when mouse is clicked
+            isMouseClicked = true;
+        }
+
+        window.addEventListener('click', onMouseClick, false);
+
+        // 10. Update Camera Position and Move in Space
         function updateMovement() {
+            const direction = new THREE.Vector3();
+
             // Move camera forward
-            if (moveForward) {
-                camera.position.z -= speed; // Move forward along Z-axis
+            if (moveForward && isMouseClicked) {
+                direction.set(0, 0, -1).applyQuaternion(camera.rotation); // Move forward along camera's direction
+                camera.position.add(direction.multiplyScalar(speed));
             }
 
             // Move camera backward
             if (moveBackward) {
-                camera.position.z += speed; // Move backward along Z-axis
+                direction.set(0, 0, 1).applyQuaternion(camera.rotation); // Move backward along Z-axis
+                camera.position.add(direction.multiplyScalar(speed));
             }
 
             // Move camera left
@@ -136,7 +173,28 @@
             }
         }
 
-        // 10. Update Position Info on the Screen
+        // 11. Handle Camera Rotation (Up/Down, Left/Right)
+        function handleRotation() {
+            // Rotate camera left/right (Y-axis)
+            if (rotateLeft) {
+                camera.rotation.y += rotationSpeed; // Rotate left
+            }
+
+            if (rotateRight) {
+                camera.rotation.y -= rotationSpeed; // Rotate right
+            }
+
+            // Rotate camera up/down (X-axis)
+            if (rotateUp) {
+                camera.rotation.x += rotationSpeed; // Rotate up
+            }
+
+            if (rotateDown) {
+                camera.rotation.x -= rotationSpeed; // Rotate down
+            }
+        }
+
+        // 12. Update Position Info on the Screen
         function updatePositionInfo() {
             const cameraPosition = camera.position;
             const cubePosition = cube.position;
@@ -148,12 +206,15 @@
             `;
         }
 
-        // 11. Render Loop
+        // 13. Render Loop
         function animate() {
             requestAnimationFrame(animate);
 
             // Update movement
             updateMovement();
+
+            // Handle camera rotation (left/right, up/down)
+            handleRotation();
 
             // Update position info on the screen
             updatePositionInfo();
@@ -164,7 +225,7 @@
 
         animate();
 
-        // 12. Resize the window dynamically
+        // 14. Resize the window dynamically
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
