@@ -44,21 +44,115 @@
         // 5. Camera Position
         camera.position.z = 5; // Ensure camera is far enough to see the object
 
-        // 6. Animation Loop (Rotate the cube)
+        // 6. Stop Cube Rotation
+        cube.rotation.set(0, 0, 0); // Reset the cube rotation
+
+        // 7. Movement Variables
+        let moveForward = false;
+        let moveBackward = false;
+        let moveLeft = false;
+        let moveRight = false;
+
+        // Movement Speed
+        const speed = 0.1;
+
+        // 8. Mouse Position for Direction
+        const mouse = new THREE.Vector2();
+        const raycaster = new THREE.Raycaster();
+
+        // 9. Update Mouse Position
+        function onMouseMove(event) {
+            // Normalize mouse coordinates
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Update the raycaster direction based on mouse position
+            raycaster.update(camera, renderer.domElement);
+        }
+
+        window.addEventListener('mousemove', onMouseMove, false);
+
+        // 10. Keyboard Controls (Arrow Keys)
+        function onKeyDown(event) {
+            switch(event.keyCode) {
+                case 38: // Up Arrow
+                    moveForward = true;
+                    break;
+                case 40: // Down Arrow
+                    moveBackward = true;
+                    break;
+                case 37: // Left Arrow
+                    moveLeft = true;
+                    break;
+                case 39: // Right Arrow
+                    moveRight = true;
+                    break;
+            }
+        }
+
+        function onKeyUp(event) {
+            switch(event.keyCode) {
+                case 38: // Up Arrow
+                    moveForward = false;
+                    break;
+                case 40: // Down Arrow
+                    moveBackward = false;
+                    break;
+                case 37: // Left Arrow
+                    moveLeft = false;
+                    break;
+                case 39: // Right Arrow
+                    moveRight = false;
+                    break;
+            }
+        }
+
+        window.addEventListener('keydown', onKeyDown, false);
+        window.addEventListener('keyup', onKeyUp, false);
+
+        // 11. Update Camera Position and Move in Space
+        function updateMovement() {
+            // Calculate direction based on mouse position
+            raycaster.update(camera, renderer.domElement);
+            const intersects = raycaster.intersectObject(cube);
+
+            const direction = new THREE.Vector3();
+
+            if (moveForward) {
+                direction.set(0, 0, -1).applyQuaternion(camera.rotation); // Move towards where the camera is pointing
+                camera.position.add(direction.multiplyScalar(speed));
+            }
+
+            if (moveBackward) {
+                direction.set(0, 0, 1).applyQuaternion(camera.rotation); // Move backward
+                camera.position.add(direction.multiplyScalar(speed));
+            }
+
+            if (moveLeft) {
+                direction.set(-1, 0, 0).applyQuaternion(camera.rotation); // Move left
+                camera.position.add(direction.multiplyScalar(speed));
+            }
+
+            if (moveRight) {
+                direction.set(1, 0, 0).applyQuaternion(camera.rotation); // Move right
+                camera.position.add(direction.multiplyScalar(speed));
+            }
+        }
+
+        // 12. Render Loop
         function animate() {
             requestAnimationFrame(animate);
 
-            // Rotate the cube
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+            // Update movement
+            updateMovement();
 
             // Render the scene
             renderer.render(scene, camera);
         }
-        
+
         animate();
 
-        // 7. Resize the window dynamically
+        // 13. Resize the window dynamically
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
