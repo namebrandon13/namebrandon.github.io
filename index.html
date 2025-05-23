@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #c1e7f6; /* Pale sky blue */
+      background-color: #c1e7f6;
       font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
@@ -41,18 +41,22 @@
       height: 70px;
     }
 
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: calc(100vh - 70px);
+      padding-top: 30px;
+    }
+
     .name-box {
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
       padding: 20px 30px;
       background-color: #65d3f9;
-      width: fit-content;
       border-radius: 20px;
       text-align: left;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: margin-left 10s ease;
       cursor: pointer;
+      transition: transform 10s ease;
     }
 
     .name-box h1 {
@@ -68,9 +72,9 @@
       font-style: italic;
     }
 
+    /* Move left using transform */
     .move-left {
-      margin-left: 40px;
-      margin-right: auto;
+      transform: translateX(-calc(50vw - 80px));
     }
   </style>
 </head>
@@ -86,9 +90,11 @@
 
   <div class="spacer"></div>
 
-  <div class="name-box" id="nameBox">
-    <h1>Brandon Rodrigues</h1>
-    <h2>Game Designer | 3D Artist | QA Engineer</h2>
+  <div class="container">
+    <div class="name-box" id="nameBox">
+      <h1>Brandon Rodrigues</h1>
+      <h2>Game Designer | 3D Artist | QA Engineer</h2>
+    </div>
   </div>
 
   <script>
