@@ -42,14 +42,16 @@
     }
 
     .container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      position: relative;
       height: calc(100vh - 70px);
-      padding-top: 30px;
+      overflow: hidden;
     }
 
     .name-box {
+      position: absolute;
+      left: 50%;
+      top: 100px;
+      transform: translateX(-50%);
       padding: 20px 30px;
       background-color: #65d3f9;
       border-radius: 20px;
@@ -72,9 +74,8 @@
       font-style: italic;
     }
 
-    /* Move left using transform */
     .move-left {
-      transform: translateX(-calc(50vw - 80px));
+      transform: translateX(0);
     }
   </style>
 </head>
