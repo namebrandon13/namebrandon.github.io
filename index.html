@@ -1,95 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brandon Rodrigues Portfolio</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff; /* Bright white background */
-            color: #000; /* Black text color for the name */
-            font-family: 'Arial', sans-serif; /* Font for the name */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            text-align: center;
-            box-sizing: border-box;
-            overflow-y: scroll;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brandon Rodrigues Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #c1e7f6; /* Pale sky blue */
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
 
-        /* Wrapper for the name */
-        .name-container {
-            position: relative;
-            text-align: center;
-            transition: transform 1s ease, font-size 1s ease, letter-spacing 1s ease, top 1s ease;
-            transform: perspective(600px) rotateX(15deg) rotateY(0deg);
-        }
+    /* Top Nav Bar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(to bottom, #001f2e, #003a4d); /* Dark blue gradient */
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
 
-        h1 {
-            font-size: 12vw; /* Scales the font size based on the viewport width */
-            font-weight: bold;
-            margin: 0;
-            letter-spacing: 5px; /* Adds some space between letters for effect */
-            text-shadow: 
-                3px 3px 5px rgba(0, 0, 0, 0.3),  /* Shadow for depth */
-                -3px -3px 5px rgba(0, 0, 0, 0.3), /* Shadow on opposite side */
-                0px 10px 10px rgba(0, 0, 0, 0.2); /* More shadow for 3D look */
-            transition: transform 0.2s ease, color 0.2s ease; /* Smooth transitions */
-        }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-style: italic;
+      transition: color 0.3s ease;
+    }
 
-        .name-single-line {
-            display: inline; /* Combine the name into a single line */
-            letter-spacing: 1px;
-            font-size: 6vw;
-            transform: perspective(600px) rotateX(45deg) rotateY(0deg);
-        }
-    </style>
+    .navbar a:hover {
+      color: #88dfff;
+    }
+
+    /* Spacer to push content below nav */
+    .spacer {
+      height: 70px;
+    }
+
+    /* Name Box */
+    .name-box {
+      margin: 30px auto;
+      padding: 20px 30px;
+      background-color: #65d3f9; /* Light blue box */
+      width: fit-content;
+      border-radius: 20px;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .name-box h1 {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+    }
+
+    .name-box h2 {
+      font-size: 1.4em;
+      font-weight: normal;
+      margin: 0;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Name Wrapper -->
-    <div class="name-container" id="nameContainer">
-        <h1 id="name">
-            <span id="firstName">Brandon</span><br>
-            <span id="lastName">Rodrigues</span>
-        </h1>
-    </div>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#">Home</a>
+    <a href="#">Career</a>
+    <a href="#">Education</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact</a>
+  </nav>
 
-    <script>
-        const nameContainer = document.getElementById("nameContainer");
-        const firstName = document.getElementById("firstName");
-        const lastName = document.getElementById("lastName");
-        const name = document.getElementById("name");
+  <!-- Spacer to prevent overlap with fixed nav -->
+  <div class="spacer"></div>
 
-        // Listen for scroll event
-        window.addEventListener("scroll", () => {
-            const scrollY = window.scrollY;
-
-            // Check how much the user has scrolled
-            if (scrollY > 100) {
-                // Move name to the top left and combine into one line
-                nameContainer.style.transform = "perspective(600px) rotateX(45deg) rotateY(0deg)";
-                nameContainer.style.top = "10px";
-                name.style.fontSize = "6vw";
-                name.style.letterSpacing = "1px";
-                name.classList.add("name-single-line");
-                firstName.style.display = "inline";
-                lastName.style.display = "inline";
-            } else {
-                // Reset name to the center
-                nameContainer.style.transform = "perspective(600px) rotateX(15deg) rotateY(0deg)";
-                nameContainer.style.top = "0";
-                name.style.fontSize = "12vw";
-                name.style.letterSpacing = "5px";
-                name.classList.remove("name-single-line");
-                firstName.style.display = "block";
-                lastName.style.display = "block";
-            }
-        });
-    </script>
+  <!-- Name Header Box -->
+  <div class="name-box">
+    <h1>Brandon Rodrigues</h1>
+    <h2>Game Designer | 3D Artist | QA Engineer</h2>
+  </div>
 
 </body>
 </html>
