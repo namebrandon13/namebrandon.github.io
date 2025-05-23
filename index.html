@@ -81,28 +81,25 @@
     }
 
     .career-box {
-      position: absolute;
-      top: 100px;
-      left: 70%;
-      transform: translateX(-50%) scale(0);
-      width: 380px;
-      background-color: #65d3f9;
-      padding: 30px;
-      border-radius: 20px;
-      font-style: italic;
-      font-size: 1.2em;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      visibility: hidden;
-      transition: transform 2s ease, opacity 2s ease, visibility 0s 2s;
-    }
-
-    .career-box.visible {
-      transform: translateX(-50%) scale(1);
-      opacity: 1;
-      visibility: visible;
-      transition: transform 2s ease, opacity 2s ease;
-    }
+  position: absolute;
+  left: 70%;
+  transform: translateX(-50%) scale(0);
+  width: 380px;
+  background-color: #65d3f9;
+  padding: 30px;
+  border-radius: 20px;
+  font-style: italic;
+  font-size: 1.2em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 2s ease, opacity 2s ease, visibility 0s 2s, top 0.4s ease;
+}
+.career-box.visible {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
 
     .career-box a {
       color: #003a4d;
@@ -181,32 +178,29 @@
     </div>
   </div>
 
-  <script>
+  script>
   const nameBox = document.getElementById('nameBox');
   const careerBox = document.getElementById('careerBox');
 
-  function isOverlapping(el1, el2) {
-    const rect1 = el1.getBoundingClientRect();
-    const rect2 = el2.getBoundingClientRect();
+  function positionCareerBox() {
+    const nameRect = nameBox.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    return !(
-      rect1.bottom < rect2.top ||
-      rect1.top > rect2.bottom ||
-      rect1.right < rect2.left ||
-      rect1.left > rect2.right
-    );
+    // Calculate new top based on bottom of nameBox + a little padding
+    const newTop = nameRect.top + nameRect.height + 20 + scrollTop;
+    careerBox.style.top = `${newTop}px`;
   }
 
   nameBox.addEventListener('click', () => {
     nameBox.classList.add('move-left');
+    positionCareerBox(); // Set dynamic top before showing
     careerBox.classList.add('visible');
+  });
 
-    // Give time for visibility and scaling to occur, then check overlap
-    setTimeout(() => {
-      if (isOverlapping(nameBox, careerBox)) {
-        careerBox.classList.add('push-down');
-      }
-    }, 100); // Slight delay to allow transition to kick in
+  window.addEventListener('resize', () => {
+    if (careerBox.classList.contains('visible')) {
+      positionCareerBox(); // Reposition if screen resizes
+    }
   });
 </script>
 
