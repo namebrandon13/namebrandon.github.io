@@ -136,30 +136,18 @@
         window.addEventListener('keydown', onKeyDown, false);
         window.addEventListener('keyup', onKeyUp, false);
 
-        // 9. Mouse Event for Moving Forward
-        let isMouseClicked = false;
-
-        function onMouseClick(event) {
-            // Only move the camera forward when mouse is clicked
-            isMouseClicked = true;
-        }
-
-        window.addEventListener('click', onMouseClick, false);
-
-        // 10. Update Camera Position and Move in Space
+        // 9. Update Camera Position and Move in Space
         function updateMovement() {
             const direction = new THREE.Vector3();
 
             // Move camera forward
-            if (moveForward && isMouseClicked) {
-                direction.set(0, 0, -1).applyQuaternion(camera.rotation); // Move forward along camera's direction
-                camera.position.add(direction.multiplyScalar(speed));
+            if (moveForward) {
+                camera.position.z -= speed; // Move forward along Z-axis
             }
 
             // Move camera backward
             if (moveBackward) {
-                direction.set(0, 0, 1).applyQuaternion(camera.rotation); // Move backward along Z-axis
-                camera.position.add(direction.multiplyScalar(speed));
+                camera.position.z += speed; // Move backward along Z-axis
             }
 
             // Move camera left
@@ -173,7 +161,7 @@
             }
         }
 
-        // 11. Handle Camera Rotation (Up/Down, Left/Right)
+        // 10. Handle Camera Rotation (Up/Down, Left/Right)
         function handleRotation() {
             // Rotate camera left/right (Y-axis)
             if (rotateLeft) {
@@ -194,7 +182,7 @@
             }
         }
 
-        // 12. Update Position Info on the Screen
+        // 11. Update Position Info on the Screen
         function updatePositionInfo() {
             const cameraPosition = camera.position;
             const cubePosition = cube.position;
@@ -206,7 +194,7 @@
             `;
         }
 
-        // 13. Render Loop
+        // 12. Render Loop
         function animate() {
             requestAnimationFrame(animate);
 
@@ -225,7 +213,7 @@
 
         animate();
 
-        // 14. Resize the window dynamically
+        // 13. Resize the window dynamically
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
