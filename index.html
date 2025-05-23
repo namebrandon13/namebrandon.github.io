@@ -54,9 +54,9 @@
             // Apply transformations based on mouse position
             name.style.transform = `
                 translate(-50%, -50%) 
-                translate(${mouseXNormalized * 5}px, ${mouseYNormalized * 5}px) 
+                translate(${mouseXNormalized * 10}px, ${mouseYNormalized * 10}px) 
                 scale(1.1) 
-                rotate(${mouseXNormalized * 5}deg)
+                rotate(${mouseXNormalized * 10}deg)
             `;
             // Optional: Change color when the mouse moves over the name
             name.style.color = `rgb(${Math.abs(mouseXNormalized * 255)}, ${Math.abs(mouseYNormalized * 255)}, 150)`;
