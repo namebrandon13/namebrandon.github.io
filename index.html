@@ -92,11 +92,9 @@
                     moveBackward = true;
                     break;
                 case 37: // Left Arrow
-                    moveLeft = true;
                     rotateLeft = true;  // Rotate camera left
                     break;
                 case 39: // Right Arrow
-                    moveRight = true;
                     rotateRight = true; // Rotate camera right
                     break;
                 case 87: // W key - Rotate camera up
@@ -117,11 +115,9 @@
                     moveBackward = false;
                     break;
                 case 37: // Left Arrow
-                    moveLeft = false;
                     rotateLeft = false;  // Stop rotating camera left
                     break;
                 case 39: // Right Arrow
-                    moveRight = false;
                     rotateRight = false; // Stop rotating camera right
                     break;
                 case 87: // W key
@@ -136,18 +132,20 @@
         window.addEventListener('keydown', onKeyDown, false);
         window.addEventListener('keyup', onKeyUp, false);
 
-        // 9. Update Camera Position and Move in Space
+        // 9. Update Camera Position and Move in Space (Forward/Backward based on rotation)
         function updateMovement() {
             const direction = new THREE.Vector3();
 
-            // Move camera forward
+            // Move camera forward (based on camera's rotation direction)
             if (moveForward) {
-                camera.position.z -= speed; // Move forward along Z-axis
+                direction.set(0, 0, -1).applyQuaternion(camera.rotation); // Move forward in camera's current direction
+                camera.position.add(direction.multiplyScalar(speed));
             }
 
             // Move camera backward
             if (moveBackward) {
-                camera.position.z += speed; // Move backward along Z-axis
+                direction.set(0, 0, 1).applyQuaternion(camera.rotation); // Move backward in camera's current direction
+                camera.position.add(direction.multiplyScalar(speed));
             }
 
             // Move camera left
@@ -198,7 +196,7 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            // Update movement
+            // Update movement (forward/backward, left/right)
             updateMovement();
 
             // Handle camera rotation (left/right, up/down)
