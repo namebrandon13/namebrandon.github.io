@@ -133,6 +133,9 @@
         padding: 20px;
       }
 
+.career-box.push-down {
+  top: 220px; /* move further down on mobile if overlapping */
+}
       .navbar a {
         font-size: 1em;
       }
@@ -179,14 +182,34 @@
   </div>
 
   <script>
-    const nameBox = document.getElementById('nameBox');
-    const careerBox = document.getElementById('careerBox');
+  const nameBox = document.getElementById('nameBox');
+  const careerBox = document.getElementById('careerBox');
 
-    nameBox.addEventListener('click', () => {
-      nameBox.classList.add('move-left');
-      careerBox.classList.add('visible');
-    });
-  </script>
+  function isOverlapping(el1, el2) {
+    const rect1 = el1.getBoundingClientRect();
+    const rect2 = el2.getBoundingClientRect();
+
+    return !(
+      rect1.bottom < rect2.top ||
+      rect1.top > rect2.bottom ||
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right
+    );
+  }
+
+  nameBox.addEventListener('click', () => {
+    nameBox.classList.add('move-left');
+    careerBox.classList.add('visible');
+
+    // Give time for visibility and scaling to occur, then check overlap
+    setTimeout(() => {
+      if (isOverlapping(nameBox, careerBox)) {
+        careerBox.classList.add('push-down');
+      }
+    }, 100); // Slight delay to allow transition to kick in
+  });
+</script>
+
 
 </body>
 </html>
