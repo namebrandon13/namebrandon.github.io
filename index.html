@@ -11,12 +11,11 @@
       font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
-    /* Top Nav Bar */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: linear-gradient(to bottom, #001f2e, #003a4d); /* Dark blue gradient */
+      background: linear-gradient(to bottom, #001f2e, #003a4d);
       color: white;
       display: flex;
       justify-content: center;
@@ -38,20 +37,20 @@
       color: #88dfff;
     }
 
-    /* Spacer to push content below nav */
     .spacer {
       height: 70px;
     }
 
-    /* Name Box */
     .name-box {
       margin: 30px auto;
       padding: 20px 30px;
-      background-color: #65d3f9; /* Light blue box */
+      background-color: #65d3f9;
       width: fit-content;
       border-radius: 20px;
       text-align: left;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.8s ease;
+      cursor: pointer;
     }
 
     .name-box h1 {
@@ -66,11 +65,16 @@
       margin: 0;
       font-style: italic;
     }
+
+    /* When clicked, move to left side */
+    .move-left {
+      margin-left: 40px !important;
+      margin-right: auto !important;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav class="navbar">
     <a href="#">Home</a>
     <a href="#">Career</a>
@@ -79,14 +83,20 @@
     <a href="#">Contact</a>
   </nav>
 
-  <!-- Spacer to prevent overlap with fixed nav -->
   <div class="spacer"></div>
 
-  <!-- Name Header Box -->
-  <div class="name-box">
+  <div class="name-box" id="nameBox">
     <h1>Brandon Rodrigues</h1>
     <h2>Game Designer | 3D Artist | QA Engineer</h2>
   </div>
+
+  <script>
+    const nameBox = document.getElementById('nameBox');
+
+    nameBox.addEventListener('click', () => {
+      nameBox.classList.add('move-left');
+    });
+  </script>
 
 </body>
 </html>
