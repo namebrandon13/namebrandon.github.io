@@ -44,10 +44,12 @@
     }
 
     .container {
-      position: relative;
-      height: calc(100vh - 70px);
-      overflow: hidden;
-    }
+  position: relative;
+  /* REMOVE height constraint */
+  /* height: calc(100vh - 70px); */
+  overflow: visible; /* Allow content to flow */
+  padding-bottom: 100px; /* Optional: extra space at bottom */
+}
 
     .name-box {
       position: absolute;
