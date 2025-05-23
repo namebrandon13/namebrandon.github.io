@@ -17,6 +17,15 @@
             height: 100vh; /* Full viewport height */
             text-align: center;
             box-sizing: border-box;
+            overflow-y: scroll;
+        }
+
+        /* Wrapper for the name */
+        .name-container {
+            position: relative;
+            text-align: center;
+            transition: transform 1s ease, font-size 1s ease, letter-spacing 1s ease, top 1s ease;
+            transform: perspective(600px) rotateX(15deg) rotateY(0deg);
         }
 
         h1 {
@@ -28,14 +37,59 @@
                 3px 3px 5px rgba(0, 0, 0, 0.3),  /* Shadow for depth */
                 -3px -3px 5px rgba(0, 0, 0, 0.3), /* Shadow on opposite side */
                 0px 10px 10px rgba(0, 0, 0, 0.2); /* More shadow for 3D look */
-            transform: perspective(600px) rotateX(10deg) rotateY(10deg); /* 3D Transformation */
+            transition: transform 0.2s ease, color 0.2s ease; /* Smooth transitions */
+        }
+
+        .name-single-line {
+            display: inline; /* Combine the name into a single line */
+            letter-spacing: 1px;
+            font-size: 6vw;
+            transform: perspective(600px) rotateX(45deg) rotateY(0deg);
         }
     </style>
 </head>
 <body>
 
-    <!-- Your name displayed -->
-    <h1>Brandon Rodrigues</h1>
+    <!-- Name Wrapper -->
+    <div class="name-container" id="nameContainer">
+        <h1 id="name">
+            <span id="firstName">Brandon</span><br>
+            <span id="lastName">Rodrigues</span>
+        </h1>
+    </div>
+
+    <script>
+        const nameContainer = document.getElementById("nameContainer");
+        const firstName = document.getElementById("firstName");
+        const lastName = document.getElementById("lastName");
+        const name = document.getElementById("name");
+
+        // Listen for scroll event
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+
+            // Check how much the user has scrolled
+            if (scrollY > 100) {
+                // Move name to the top left and combine into one line
+                nameContainer.style.transform = "perspective(600px) rotateX(45deg) rotateY(0deg)";
+                nameContainer.style.top = "10px";
+                name.style.fontSize = "6vw";
+                name.style.letterSpacing = "1px";
+                name.classList.add("name-single-line");
+                firstName.style.display = "inline";
+                lastName.style.display = "inline";
+            } else {
+                // Reset name to the center
+                nameContainer.style.transform = "perspective(600px) rotateX(15deg) rotateY(0deg)";
+                nameContainer.style.top = "0";
+                name.style.fontSize = "12vw";
+                name.style.letterSpacing = "5px";
+                name.classList.remove("name-single-line");
+                firstName.style.display = "block";
+                lastName.style.display = "block";
+            }
+        });
+    </script>
 
 </body>
 </html>
