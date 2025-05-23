@@ -86,10 +86,10 @@
                     rotateDown = true;
                     break;
                 case 37: // Left Arrow
-                    rotateLeft = true;
+                    rotateLeft = true;  // Rotate camera left
                     break;
                 case 39: // Right Arrow
-                    rotateRight = true;
+                    rotateRight = true; // Rotate camera right
                     break;
             }
         }
@@ -103,10 +103,10 @@
                     rotateDown = false;
                     break;
                 case 37: // Left Arrow
-                    rotateLeft = false;
+                    rotateLeft = false;  // Stop rotating camera left
                     break;
                 case 39: // Right Arrow
-                    rotateRight = false;
+                    rotateRight = false; // Stop rotating camera right
                     break;
             }
         }
@@ -114,7 +114,7 @@
         window.addEventListener('keydown', onKeyDown, false);
         window.addEventListener('keyup', onKeyUp, false);
 
-        // 9. Handle Camera Rotation
+        // 9. Handle Camera Rotation (Up/Down, Left/Right)
         function handleRotation() {
             // Rotate camera left/right (Y-axis)
             if (rotateLeft) {
