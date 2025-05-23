@@ -24,55 +24,18 @@
             font-weight: bold;
             margin: 0;
             letter-spacing: 5px; /* Adds some space between letters for effect */
-            transition: transform 0.2s ease, color 0.2s ease; /* Smooth transitions */
+            text-shadow: 
+                3px 3px 5px rgba(0, 0, 0, 0.3),  /* Shadow for depth */
+                -3px -3px 5px rgba(0, 0, 0, 0.3), /* Shadow on opposite side */
+                0px 10px 10px rgba(0, 0, 0, 0.2); /* More shadow for 3D look */
+            transform: perspective(600px) rotateX(10deg) rotateY(10deg); /* 3D Transformation */
         }
     </style>
 </head>
 <body>
 
     <!-- Your name displayed -->
-    <h1 id="name">Brandon Rodrigues</h1>
-
-    <script>
-        // Selecting the name element
-        const name = document.getElementById('name');
-
-        // Set up event listener for mouse movement
-        document.addEventListener('mousemove', (event) => {
-            // Get the mouse position relative to the window
-            const mouseX = event.clientX;
-            const mouseY = event.clientY;
-
-            // Get the size of the viewport
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-
-            // Normalize the mouse position between -1 and 1
-            const mouseXNormalized = (mouseX / windowWidth) * 2 - 1;
-            const mouseYNormalized = (mouseY / windowHeight) * 2 - 1;
-
-            // Apply transformations based on mouse position
-            name.style.transform = `
-                translate(-50%, -50%) 
-                translate(${mouseXNormalized * 10}px, ${mouseYNormalized * 10}px) 
-                scale(1.1) 
-                rotate(${mouseXNormalized * 10}deg)
-            `;
-            // Optional: Change color when the mouse moves over the name
-            name.style.color = `rgb(${Math.abs(mouseXNormalized * 255)}, ${Math.abs(mouseYNormalized * 255)}, 150)`;
-        });
-
-        // Optional: Add hover effect for color change or background color when hovering
-        name.addEventListener('mouseenter', () => {
-            name.style.transition = 'transform 0.3s ease, color 0.3s ease';
-            name.style.color = 'deepskyblue'; // Change color on hover
-        });
-
-        name.addEventListener('mouseleave', () => {
-            name.style.transition = 'transform 0.3s ease, color 0.3s ease';
-            name.style.color = 'black'; // Reset to original color
-        });
-    </script>
+    <h1>Brandon Rodrigues</h1>
 
 </body>
 </html>
