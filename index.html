@@ -23,6 +23,7 @@
       padding: 15px 0;
       z-index: 1000;
       box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      flex-wrap: wrap;
     }
 
     .navbar a {
@@ -80,39 +81,62 @@
     }
 
     .career-box {
-  position: absolute;
-  top: 100px;
-  left: 70%;
-  transform: translateX(-50%) scale(0); /* Shrunk initially */
-  width: 380px;
-  background-color: #65d3f9;
-  padding: 30px;
-  border-radius: 20px;
-  font-style: italic;
-  font-size: 1.2em;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transition: transform 2s ease, opacity 2s ease, visibility 0s 2s;
-}
+      position: absolute;
+      top: 100px;
+      left: 70%;
+      transform: translateX(-50%) scale(0);
+      width: 380px;
+      background-color: #65d3f9;
+      padding: 30px;
+      border-radius: 20px;
+      font-style: italic;
+      font-size: 1.2em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 2s ease, opacity 2s ease, visibility 0s 2s;
+    }
 
     .career-box.visible {
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-  visibility: visible;
-  transition: transform 2s ease, opacity 2s ease;
-}
-.career-box a {
-  color: #003a4d;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+      visibility: visible;
+      transition: transform 2s ease, opacity 2s ease;
+    }
 
-.career-box a:hover {
-  color: #001f2e;
-  text-decoration: underline;
-}
+    .career-box a {
+      color: #003a4d;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .career-box a:hover {
+      color: #001f2e;
+      text-decoration: underline;
+    }
+
+    /* Responsive design for mobile */
+    @media (max-width: 768px) {
+      .name-box {
+        font-size: 0.9em;
+        padding: 15px 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .career-box {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        font-size: 1em;
+        padding: 20px;
+      }
+
+      .navbar a {
+        font-size: 1em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -134,24 +158,24 @@
     </div>
 
     <div class="career-box" id="careerBox">
-  <h2>Career</h2>
-  <p>
-    <a href="#freelancer"><strong>Freelancer 3D Artist / Upwork</strong></a><br>
-    London, UK / March 2025 – Current
-  </p>
-  <p>
-    <a href="#vr"><strong>VR Experience Facilitator / Nobody’s Listening</strong></a><br>
-    London, UK / November 2023 – July 2024
-  </p>
-  <p>
-    <a href="#qa"><strong>Quality Engineer / LTIMINDTREE</strong></a><br>
-    Mumbai, India / January 2023 – August 2023
-  </p>
-  <p>
-    <a href="#data"><strong>Data Engineer / LTIMINDTREE</strong></a><br>
-    Mumbai, India / January 2021 – December 2022
-  </p>
-</div>
+      <h2>Career</h2>
+      <p>
+        <a href="#freelancer"><strong>Freelancer 3D Artist / Upwork</strong></a><br>
+        London, UK / March 2025 – Current
+      </p>
+      <p>
+        <a href="#vr"><strong>VR Experience Facilitator / Nobody’s Listening</strong></a><br>
+        London, UK / November 2023 – July 2024
+      </p>
+      <p>
+        <a href="#qa"><strong>Quality Engineer / LTIMINDTREE</strong></a><br>
+        Mumbai, India / January 2023 – August 2023
+      </p>
+      <p>
+        <a href="#data"><strong>Data Engineer / LTIMINDTREE</strong></a><br>
+        Mumbai, India / January 2021 – December 2022
+      </p>
+    </div>
   </div>
 
   <script>
