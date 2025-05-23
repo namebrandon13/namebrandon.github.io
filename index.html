@@ -138,12 +138,14 @@
 
             // Move camera forward (based on camera's rotation direction)
             if (moveForward) {
+                // Calculate forward movement based on camera's rotation
                 direction.set(0, 0, -1).applyQuaternion(camera.rotation); // Move forward in camera's current direction
                 camera.position.add(direction.multiplyScalar(speed));
             }
 
             // Move camera backward
             if (moveBackward) {
+                // Calculate backward movement based on camera's rotation
                 direction.set(0, 0, 1).applyQuaternion(camera.rotation); // Move backward in camera's current direction
                 camera.position.add(direction.multiplyScalar(speed));
             }
