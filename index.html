@@ -82,20 +82,25 @@
     }
 
     .career-box,
-    .education-box {
-      position: absolute;
-      transform: translateX(-50%) scale(0);
-      width: 380px;
-      background-color: #65d3f9;
-      padding: 30px;
-      border-radius: 20px;
-      font-style: italic;
-      font-size: 1.2em;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      visibility: hidden;
-      transition: transform 2s ease, opacity 2s ease, visibility 0s 2s, top 0.4s ease;
-    }
+.education-box {
+  position: absolute;
+  transform: translateX(-50%) scale(1);
+  width: 380px;
+  background-color: #65d3f9;
+  padding: 30px;
+  border-radius: 20px;
+  font-style: italic;
+  font-size: 1.2em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 2s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  visibility: visible;
+}
 
     .career-box.visible,
     .education-box.visible {
@@ -218,35 +223,33 @@
     return !(r1.bottom < r2.top || r1.top > r2.bottom || r1.right < r2.left || r1.left > r2.right);
   }
 
-  function showBoxes() {
+  nameBox.addEventListener('click', () => {
     nameBox.classList.add('move-left');
 
-    // Position CareerBox first
+    // Position CareerBox and show it immediately
     positionBelow(nameBox, careerBox, 20);
-    careerBox.classList.add('visible');
+    careerBox.classList.add('fade-in');
 
-    // Delay slightly to allow careerBox to render
+    // Delay education box by 2s
     setTimeout(() => {
-      // Try to position EducationBox 25% lower than CareerBox
       const careerHeight = careerBox.getBoundingClientRect().height;
       const offset = careerHeight * 0.25;
       positionBelow(careerBox, educationBox, offset);
 
-      // If overlap still occurs, stack EducationBox below CareerBox
       if (isOverlapping(careerBox, educationBox)) {
-        positionBelow(careerBox, educationBox, 30); // stack with margin
+        positionBelow(careerBox, educationBox, 30);
       }
 
-      educationBox.classList.add('visible');
-    }, 100);
-  }
-
-  nameBox.addEventListener('click', showBoxes);
+      educationBox.classList.add('fade-in');
+    }, 2000); // Wait 2 seconds after careerBox
+  });
 
   window.addEventListener('resize', () => {
-    if (careerBox.classList.contains('visible')) {
+    if (careerBox.classList.contains('fade-in')) {
       positionBelow(nameBox, careerBox, 20);
+    }
 
+    if (educationBox.classList.contains('fade-in')) {
       const careerHeight = careerBox.getBoundingClientRect().height;
       const offset = careerHeight * 0.25;
       positionBelow(careerBox, educationBox, offset);
