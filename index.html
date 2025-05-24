@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Brandon Rodrigues Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandon Rodrigues - Home</title>
   <style>
     body {
       margin: 0;
-      overflow-y: scroll;
+      padding: 0;
       background-color: #c1e7f6;
       font-family: 'Comic Sans MS', cursive, sans-serif;
     }
@@ -23,8 +23,8 @@
       gap: 40px;
       padding: 15px 0;
       z-index: 1000;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
       flex-wrap: wrap;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     }
 
     .navbar a {
@@ -32,131 +32,42 @@
       text-decoration: none;
       font-size: 1.2em;
       font-style: italic;
-      transition: color 0.3s ease;
-    }
-
-    .navbar a:hover {
-      color: #88dfff;
     }
 
     .spacer {
       height: 70px;
     }
 
-    .container {
-      position: relative;
-      overflow: visible;
-      padding-bottom: 100px;
+    .content {
+      max-width: 768px;
+      margin: auto;
+      padding: 60px 20px 20px;
     }
 
     .name-box {
-      position: absolute;
-      left: 50%;
-      top: 50px;
-      transform: translateX(-50%);
-      padding: 20px 30px;
       background-color: #65d3f9;
       border-radius: 20px;
-      text-align: left;
+      padding: 20px 25px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 1s ease, left 1s ease;
+      text-align: center;
     }
 
     .name-box h1 {
-      font-size: 2.5em;
-      font-weight: bold;
+      font-size: 2em;
       margin: 0 0 10px 0;
     }
 
     .name-box h2 {
-      font-size: 1.4em;
-      font-weight: normal;
-      margin: 0;
+      font-size: 1.2em;
       font-style: italic;
-    }
-
-    .move-left {
-      left: 40px;
-      transform: none;
-    }
-
-    .career-box,
-.education-box {
-  position: absolute;
-  transform: translateX(-50%) scale(1);
-  width: 380px;
-  background-color: #65d3f9;
-  padding: 30px;
-  border-radius: 20px;
-  font-style: italic;
-  font-size: 1.2em;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 2s ease;
-}
-
-.fade-in {
-  opacity: 1;
-  visibility: visible;
-}
-
-    .career-box.visible,
-    .education-box.visible {
-      transform: translateX(-50%) scale(1);
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .career-box {
-      left: 70%;
-    }
-
-    .education-box {
-      left: 25%;
-    }
-
-    .career-box a {
-      color: #003a4d;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    .career-box a:hover {
-      color: #001f2e;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .name-box {
-        font-size: 0.9em;
-        padding: 15px 20px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .career-box,
-      .education-box {
-        width: 90%;
-        left: 50%;
-        transform: translateX(-50%) scale(0);
-        font-size: 1em;
-        padding: 20px;
-      }
-
-      .navbar a {
-        font-size: 1em;
-      }
+      margin: 0;
     }
   </style>
 </head>
 <body>
-
   <nav class="navbar">
-    <a href="#">Home</a>
-    <a href="#">Career</a>
+    <a href="home.html">Home</a>
+    <a href="career.html">Career</a>
     <a href="#">Education</a>
     <a href="#">Projects</a>
     <a href="#">Contact</a>
@@ -164,103 +75,11 @@
 
   <div class="spacer"></div>
 
-  <div class="container">
-    <div class="name-box" id="nameBox">
+  <div class="content">
+    <div class="name-box">
       <h1>Brandon Rodrigues</h1>
       <h2>Game Designer | 3D Artist | QA Engineer</h2>
     </div>
-
-    <div class="career-box" id="careerBox">
-      <h2>Career</h2>
-      <p>
-        <a href="#freelancer"><strong>Freelancer 3D Artist / Upwork</strong></a><br>
-        London, UK / March 2025 – Current
-      </p>
-      <p>
-        <a href="#vr"><strong>VR Experience Facilitator / Nobody’s Listening</strong></a><br>
-        London, UK / November 2023 – July 2024
-      </p>
-      <p>
-        <a href="#qa"><strong>Quality Engineer / LTIMINDTREE</strong></a><br>
-        Mumbai, India / January 2023 – August 2023
-      </p>
-      <p>
-        <a href="#data"><strong>Data Engineer / LTIMINDTREE</strong></a><br>
-        Mumbai, India / January 2021 – December 2022
-      </p>
-    </div>
-
-    <div class="education-box" id="educationBox">
-      <h2>Education</h2>
-      <p>
-        <strong>MSc Computer Games Technology – 1st Class (Distinction)</strong><br>
-        City, University of London – London, UK<br>
-        Sep 2023 – Oct 2024
-      </p>
-      <p>
-        <strong>BEng Computer Engineering – 7.69 CGPA</strong><br>
-        St. John College of Engineering and Management – Palghar, India<br>
-        Aug 2018 – May 2021
-      </p>
-    </div>
   </div>
-
-  <script>
-  const nameBox = document.getElementById('nameBox');
-  const careerBox = document.getElementById('careerBox');
-  const educationBox = document.getElementById('educationBox');
-
-  function positionBelow(sourceEl, targetEl, offset = 20) {
-    const sourceRect = sourceEl.getBoundingClientRect();
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const newTop = sourceRect.top + sourceRect.height + offset + scrollTop;
-    targetEl.style.top = `${newTop}px`;
-  }
-
-  function isOverlapping(el1, el2) {
-    const r1 = el1.getBoundingClientRect();
-    const r2 = el2.getBoundingClientRect();
-    return !(r1.bottom < r2.top || r1.top > r2.bottom || r1.right < r2.left || r1.left > r2.right);
-  }
-
-  nameBox.addEventListener('click', () => {
-    nameBox.classList.add('move-left');
-
-    // Position CareerBox and show it immediately
-    positionBelow(nameBox, careerBox, 20);
-    careerBox.classList.add('fade-in');
-
-    // Delay education box by 2s
-    setTimeout(() => {
-      const careerHeight = careerBox.getBoundingClientRect().height;
-      const offset = careerHeight * 0.25;
-      positionBelow(careerBox, educationBox, offset);
-
-      if (isOverlapping(careerBox, educationBox)) {
-        positionBelow(careerBox, educationBox, 30);
-      }
-
-      educationBox.classList.add('fade-in');
-    }, 2000); // Wait 2 seconds after careerBox
-  });
-
-  window.addEventListener('resize', () => {
-    if (careerBox.classList.contains('fade-in')) {
-      positionBelow(nameBox, careerBox, 20);
-    }
-
-    if (educationBox.classList.contains('fade-in')) {
-      const careerHeight = careerBox.getBoundingClientRect().height;
-      const offset = careerHeight * 0.25;
-      positionBelow(careerBox, educationBox, offset);
-
-      if (isOverlapping(careerBox, educationBox)) {
-        positionBelow(careerBox, educationBox, 30);
-      }
-    }
-  });
-</script>
-
-
 </body>
 </html>
