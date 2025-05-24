@@ -201,34 +201,40 @@
   </div>
 
   <script>
-    const nameBox = document.getElementById('nameBox');
-    const careerBox = document.getElementById('careerBox');
-    const educationBox = document.getElementById('educationBox');
+  const nameBox = document.getElementById('nameBox');
+  const careerBox = document.getElementById('careerBox');
+  const educationBox = document.getElementById('educationBox');
 
-    function positionBelow(sourceEl, targetEl) {
-      const sourceRect = sourceEl.getBoundingClientRect();
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const newTop = sourceRect.top + sourceRect.height + 20 + scrollTop;
-      targetEl.style.top = `${newTop}px`;
-    }
+  function positionBelow(sourceEl, targetEl, offset = 20) {
+    const sourceRect = sourceEl.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const newTop = sourceRect.top + sourceRect.height + offset + scrollTop;
+    targetEl.style.top = `${newTop}px`;
+  }
 
-    nameBox.addEventListener('click', () => {
-      nameBox.classList.add('move-left');
-      positionBelow(nameBox, careerBox);
-      positionBelow(nameBox, educationBox);
-      careerBox.classList.add('visible');
+  function showBoxes() {
+    nameBox.classList.add('move-left');
+    positionBelow(nameBox, careerBox, 20); // CareerBox below NameBox
+    careerBox.classList.add('visible');
+
+    // Wait until careerBox is rendered, then place educationBox
+    setTimeout(() => {
+      positionBelow(careerBox, educationBox, 30); // EducationBox below CareerBox
       educationBox.classList.add('visible');
-    });
+    }, 10);
+  }
 
-    window.addEventListener('resize', () => {
-      if (careerBox.classList.contains('visible')) {
-        positionBelow(nameBox, careerBox);
-      }
-      if (educationBox.classList.contains('visible')) {
-        positionBelow(nameBox, educationBox);
-      }
-    });
-  </script>
+  nameBox.addEventListener('click', showBoxes);
+
+  window.addEventListener('resize', () => {
+    if (careerBox.classList.contains('visible')) {
+      positionBelow(nameBox, careerBox, 20);
+    }
+    if (educationBox.classList.contains('visible')) {
+      positionBelow(careerBox, educationBox, 30);
+    }
+  });
+</script>
 
 </body>
 </html>
