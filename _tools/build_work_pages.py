@@ -16,22 +16,33 @@ PAGES = [
         "slug": "coach-number-11",
         "title": "Coach Number 11",
         "lede": "An observation-horror puzzle on a train. Every coach looks the same, until one doesn't.",
-        "spec": [("engine", "Unreal Engine"), ("genre", "Horror puzzle"), ("platform", "Windows"),
+        "spec": [("my role", "Solo: concept, design, level layout, programming and every 3D model (made in Blender)"),
+                 ("engine", "Unreal Engine"), ("genre", "Horror puzzle"), ("platform", "Windows"),
                  ("status", "Prototype, still in development"),
                  ("play", '<a href="https://name-brandon.itch.io/coach-number-11" target="_blank" rel="noopener">name-brandon.itch.io/coach-number-11 ↗</a>')],
         "body": [
             ("The idea", [
                 "You're trying to reach coach number 11. In each coach you look around carefully and decide: is this "
                 "the same coach as the last one, or has something changed? Get it right and you move forward.",
-                "It's inspired by P.T., Observation Duty and The Exit 8, games where the scare comes from noticing "
-                "something small is wrong, rather than from something jumping out at you.",
+                "The concept came from Shinkansen 0 and The Exit 8, games where the scare comes from noticing "
+                "something small is wrong, rather than from something jumping out at you. I set mine in an Indian "
+                "railway sleeper coach.",
             ]),
-            ("What's in the build", [
+            ("What I built", [
                 ("ul", [
-                    "Sleeper-coach interiors in Unreal Engine (screenshots below)",
-                    "The same-or-changed loop: inspect a coach, make the call, move on",
+                    "Every 3D model in the game, made in Blender: the coaches, bunks, fittings and props",
+                    "The level layout, and the same-or-changed loop: inspect a coach, make the call, move on",
+                    "AI behaviour and the gameplay code in Unreal Engine",
                     "A playable Windows build on itch.io",
                 ]),
+            ]),
+            ("The hardest part", [
+                "The anomalies. I was designing them while I was building the game, so every new idea meant going back "
+                "into code I'd already written. There was a lot of back and forth.",
+            ]),
+            ("What I'd do differently", [
+                "Design the full list of anomalies before writing any code. Knowing every change the game needs to make "
+                "up front would let me build the systems for them once, and keep development smooth.",
             ]),
             ("What's next", [
                 "It's a prototype and I'm still working on it. Next up are new anomalies (defects), more features and "
@@ -45,7 +56,8 @@ PAGES = [
         "slug": "vr-rage-room",
         "title": "VR Rage Room",
         "lede": "My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to study how people respond.",
-        "spec": [("engine", "Unity"), ("platform", "VR headset and flatscreen (dual mode)"),
+        "spec": [("my role", "Solo: design, programming, testing and every 3D model (made in Blender)"),
+                 ("engine", "Unity"), ("platform", "VR headset and flatscreen (dual mode)"),
                  ("context", "MSc Computer Games Technology dissertation, City St George's, University of London"),
                  ("year", "2024")],
         "body": [
@@ -60,11 +72,17 @@ PAGES = [
                     "A VR input loop that responds to the player's real-time motion, with physics-based feedback",
                     "A flatscreen mode running the same simulation, for comparison",
                     "A UX testing framework, with gameplay-data analysis of each session",
+                    "Every 3D model in the room, made in Blender",
                 ]),
             ]),
-            ("The hard part: frame rate", [
-                "Physics-heavy scenes and VR don't get along. Dropped frames in a headset are uncomfortable, so the target "
-                "was a stable 90 FPS. I got there on mid-tier hardware through custom collision mesh design.",
+            ("The hardest part: getting the physics right", [
+                "Making things deform and break convincingly was the hardest part, and it all had to run in VR. Dropped "
+                "frames in a headset are uncomfortable, so the target was a stable 90 FPS. I got there on mid-tier "
+                "hardware through custom collision mesh design.",
+            ]),
+            ("What I'd do differently", [
+                "Split it into different rooms, each built around a different kind of physics, instead of having one "
+                "room handle everything. Each room could then be tuned on its own.",
             ]),
             ("How it turned out", [
                 "The project was part of an MSc I finished with a Distinction (71.53%). Holding VR scenes at 90 FPS is now "
@@ -78,7 +96,7 @@ PAGES = [
         "slug": "cosmic-chaos",
         "title": "Cosmic Chaos",
         "lede": "A fast arcade space game: dodge, weave, grab the energy cores, survive the next wave.",
-        "spec": [("engine", "Unity"), ("genre", "Arcade shooter"), ("platform", "Windows and Linux"),
+        "spec": [("my role", "Solo"), ("engine", "Unity"), ("genre", "Arcade shooter"), ("platform", "Windows and Linux"),
                  ("context", "Academic project"), ("status", "Released"),
                  ("play", '<a href="https://name-brandon.itch.io/cosmic-chaos" target="_blank" rel="noopener">name-brandon.itch.io/cosmic-chaos ↗</a>')],
         "body": [
@@ -108,7 +126,7 @@ PAGES = [
         "slug": "one-more-lesson",
         "title": "One More Lesson",
         "lede": "A friendly 1994 tutor program that teaches you the command line, and won't let you leave.",
-        "spec": [("engine", "Godot 4"), ("genre", "Text-based, fourth-wall-breaking horror mystery"), ("platform", "Windows"),
+        "spec": [("my role", "Solo, with Claude as an AI pair programmer"), ("engine", "Godot 4"), ("genre", "Text-based, fourth-wall-breaking horror mystery"), ("platform", "Windows"),
                  ("status", "Prototype / proof of concept"), ("released", "2026"),
                  ("play", '<a href="https://name-brandon.itch.io/one-more-lesson" target="_blank" rel="noopener">name-brandon.itch.io/one-more-lesson ↗</a>')],
         "body": [

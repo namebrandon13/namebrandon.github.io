@@ -37,11 +37,12 @@
 <div class="wrap">
 <header class="cs-head"><a class="back" href="../#work">← all work</a>
 <h1>VR Rage Room</h1><p class='lede'>My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to study how people respond.</p>
-<dl class='spec'><dt>engine</dt><dd>Unity</dd><dt>platform</dt><dd>VR headset and flatscreen (dual mode)</dd><dt>context</dt><dd>MSc Computer Games Technology dissertation, City St George's, University of London</dd><dt>year</dt><dd>2024</dd></dl></header>
+<dl class='spec'><dt>my role</dt><dd>Solo: design, programming, testing and every 3D model (made in Blender)</dd><dt>engine</dt><dd>Unity</dd><dt>platform</dt><dd>VR headset and flatscreen (dual mode)</dd><dt>context</dt><dd>MSc Computer Games Technology dissertation, City St George's, University of London</dd><dt>year</dt><dd>2024</dd></dl></header>
 <div class='cs-body'><article>
 <h2>The idea</h2><p>A rage room simulation you can play in VR or on a normal screen. The point wasn&#x27;t only to make breaking things feel good: it was a research tool for analysing people&#x27;s emotional responses, so the same experience had to work in both modes and record what players did.</p>
-<h2>What I built</h2><ul><li>Real-time destruction: procedural destruction plus soft-body physics, so objects deform and break</li><li>A VR input loop that responds to the player&#x27;s real-time motion, with physics-based feedback</li><li>A flatscreen mode running the same simulation, for comparison</li><li>A UX testing framework, with gameplay-data analysis of each session</li></ul>
-<h2>The hard part: frame rate</h2><p>Physics-heavy scenes and VR don&#x27;t get along. Dropped frames in a headset are uncomfortable, so the target was a stable 90 FPS. I got there on mid-tier hardware through custom collision mesh design.</p>
+<h2>What I built</h2><ul><li>Real-time destruction: procedural destruction plus soft-body physics, so objects deform and break</li><li>A VR input loop that responds to the player&#x27;s real-time motion, with physics-based feedback</li><li>A flatscreen mode running the same simulation, for comparison</li><li>A UX testing framework, with gameplay-data analysis of each session</li><li>Every 3D model in the room, made in Blender</li></ul>
+<h2>The hardest part: getting the physics right</h2><p>Making things deform and break convincingly was the hardest part, and it all had to run in VR. Dropped frames in a headset are uncomfortable, so the target was a stable 90 FPS. I got there on mid-tier hardware through custom collision mesh design.</p>
+<h2>What I&#x27;d do differently</h2><p>Split it into different rooms, each built around a different kind of physics, instead of having one room handle everything. Each room could then be tuned on its own.</p>
 <h2>How it turned out</h2><p>The project was part of an MSc I finished with a Distinction (71.53%). Holding VR scenes at 90 FPS is now part of my job at Candela.</p>
 </article><aside class='cs-side'>
 <p class='hand'>screenshots and a capture of this are on my list to add</p>

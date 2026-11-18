@@ -74,15 +74,15 @@ ROLES = [
         "Developed and optimised internal migration applications using Python, JavaScript, and React JS within a GCP and Teradata environment.",
     ]),
     ("Freelance 3D Generalist", "Upwork, Remote", "Nov 2020 – Sep 2023", [
-        "Finished 150+ projects in gaming, architecture, and product design with a 4.9/5 Upwork rating and several repeat clients.",
+        "Finished 150+ projects and assignments for 28+ clients in gaming, architecture, and product design, with a 4.9/5 Upwork rating and several repeat clients.",
         "Automated repetitive tasks through Python scripting, cutting asset turnaround time by 30%.",
     ]),
 ]
 
 PROJECTS = [
-    ("VR Rage Room (Unity, MSc dissertation)", "Procedural destruction and soft-body physics, optimised to a stable 90 FPS on mid-tier hardware through custom collision mesh design."),
-    ("Coach Number 11 (Unreal Engine)", "Observation-horror puzzle prototype set on a train; playable on itch.io."),
-    ("Cosmic Chaos (Unity)", "Arcade space game with real-time physics, object pooling and wave-based enemy spawners; released on itch.io."),
+    ("VR Rage Room (Unity, solo MSc dissertation)", "Procedural destruction and soft-body physics, optimised to a stable 90 FPS on mid-tier hardware through custom collision mesh design; all 3D models made in Blender."),
+    ("Coach Number 11 (Unreal Engine, solo)", "Observation-horror puzzle prototype set in an Indian railway coach; designed the level layout and AI behaviour and made all 3D models in Blender; playable on itch.io."),
+    ("Cosmic Chaos (Unity, solo)", "Arcade space game with real-time physics, object pooling and wave-based enemy spawners; released on itch.io."),
     ("Delivery Challenge (Unreal)", "Semi-open-world delivery simulation using pathfinding and modular urban assets."),
     ("Space Tracks (C++)", "Framebuffer objects and dynamic shading techniques, built without an engine."),
 ]
