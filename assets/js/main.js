@@ -50,6 +50,10 @@
     };
     const tick = () => { if (!paused && visible && !document.hidden) show(cur + 1); };
     const restart = () => { clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, 3800); };
+    // Clicking the frame opens the current screenshot in the lightbox (hidden [data-lb] items, same order)
+    const frame = roll.querySelector('.roll__frame');
+    const lbItems = roll.querySelectorAll('[data-lb]');
+    if (frame.tagName === 'BUTTON' && lbItems.length) frame.addEventListener('click', () => lbItems[cur]?.click());
     roll.addEventListener('mouseenter', () => { paused = true; });
     roll.addEventListener('mouseleave', () => { paused = false; });
     roll.addEventListener('focusin', () => { paused = true; });
