@@ -94,8 +94,8 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
 /* Rolling postcard: screenshots cross-fade inside one taped frame */
 .roll__frame { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: #0d1a2a; padding: 0; border: 0; cursor: zoom-in; }
 .roll figcaption > span:first-child { color: var(--ink-soft); }
-.roll__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
-.roll__frame img.is-on { opacity: 1; }
+.roll__frame img, .roll__frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
+.roll__frame img.is-on, .roll__frame video.is-on { opacity: 1; }
 .roll figcaption { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .roll figcaption > a { color: var(--ink-soft); text-decoration: none; }
 .roll figcaption > a:hover { color: var(--red); }
@@ -106,7 +106,7 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
 }
 .roll__dots button[aria-current="true"] { background: var(--red); border-color: var(--red); }
 .roll__dots button:hover { border-color: var(--red); }
-@media (prefers-reduced-motion: reduce) { .roll__frame img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .roll__frame img, .roll__frame video { transition: none; } }
 .note {
   position: absolute; font-family: var(--hand); font-size: 23px; color: var(--red); line-height: 1.1; font-weight: 600;
 }
@@ -282,7 +282,7 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
 .cs-process h3.hand { font-size: 27px; margin: 26px 0 4px; }
 .cs-process h3.hand:first-of-type { margin-top: 6px; }
 .roll--soft .roll__frame { background: #e9e3d6; }
-.roll--soft .roll__frame img { object-fit: contain; }
+.roll--soft .roll__frame img, .roll--soft .roll__frame video { object-fit: contain; }
 .roll--soft figcaption { align-items: flex-start; font-size: 15px; min-height: 2.6em; }
 .roll.entry__media { cursor: default; }
 

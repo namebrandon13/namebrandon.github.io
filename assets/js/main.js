@@ -28,7 +28,7 @@
   // Rolling postcards: cross-fade every few seconds; pause on hover/focus, off screen or in a hidden tab.
   // With reduced motion it never advances by itself, but the dots still work.
   document.querySelectorAll('[data-roll]').forEach((roll) => {
-    const imgs = [...roll.querySelectorAll('.roll__frame img')];
+    const imgs = [...roll.querySelectorAll('.roll__frame img, .roll__frame video')];
     const dotsWrap = roll.querySelector('.roll__dots');
     const capEl = roll.querySelector('[data-roll-cap]');
     if (imgs.length < 2) return;
@@ -45,7 +45,14 @@
       cur = (i + imgs.length) % imgs.length;
       imgs.forEach((img, j) => {
         img.classList.toggle('is-on', j === cur);
-        if (j === cur) img.loading = 'eager';
+        if (img.tagName === 'VIDEO') {
+          // A clip in a postcard: load it the first time it comes up, play it through, then move on
+          if (j === cur && !reduceMotion) {
+            if (img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
+            img.currentTime = 0;
+            img.play().catch(() => {});
+          } else { img.pause(); }
+        } else if (j === cur) { img.loading = 'eager'; }
       });
       dots.forEach((d, j) => d.setAttribute('aria-current', String(j === cur)));
       if (capEl && imgs[cur].dataset.cap) capEl.textContent = imgs[cur].dataset.cap;
@@ -54,6 +61,8 @@
     const asleep = () => roll.classList.contains('pile__card') && !roll.classList.contains('is-front');
     const tick = () => {
       if (paused || !visible || document.hidden || asleep()) return;
+      const v = imgs[cur];
+      if (v.tagName === 'VIDEO' && !v.paused && !v.ended) return; // let the clip finish first
       const next = (cur + 1) % imgs.length;
       if (next === 0 && !roll.dispatchEvent(new CustomEvent('roll:wrap', { bubbles: true, cancelable: true }))) return;
       show(next);
@@ -64,6 +73,7 @@
     const lbItems = roll.querySelectorAll('[data-lb]');
     if (frame.tagName === 'BUTTON' && lbItems.length) frame.addEventListener('click', () => lbItems[cur]?.click());
     roll.addEventListener('roll:reset', () => { show(0); restart(); });
+    imgs.forEach((v) => { if (v.tagName === 'VIDEO') v.addEventListener('ended', () => { if (!paused) { tick(); restart(); } }); });
     roll.addEventListener('mouseenter', () => { paused = true; });
     roll.addEventListener('mouseleave', () => { paused = false; });
     roll.addEventListener('focusin', () => { paused = true; });
