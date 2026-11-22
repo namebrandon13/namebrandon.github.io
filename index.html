@@ -170,11 +170,22 @@
       </article>
 
       <article class="entry">
-        <button class="entry__media" data-lb="cosmic" data-src="assets/img/cosmic1.webp" data-caption="Cosmic Chaos: gameplay">
-          <figure class="taped tilt-l"><img src="assets/img/cosmic1-sm.webp" alt="Cosmic Chaos gameplay: a small ship among asteroids and enemies over a purple nebula" width="720" height="405" loading="lazy"></figure>
-        </button>
-        <span hidden data-lb="cosmic" data-src="assets/img/cosmic2.webp" data-caption="Cosmic Chaos: gameplay"></span>
-        <span hidden data-lb="cosmic" data-src="assets/img/cosmic3.webp" data-caption="Cosmic Chaos: pause menu"></span>
+        <figure class="entry__media taped tilt-l roll" data-roll aria-roledescription="slideshow" aria-label="Cosmic Chaos screenshots">
+          <button type="button" class="roll__frame" aria-label="View this screenshot larger">
+            <img class="is-on" src="assets/img/cosmic-play1-sm.webp" alt="Cosmic Chaos gameplay: the player's ship in open space, surrounded by enemy ships, with an explosion off to the left" width="720" height="393" loading="lazy">
+            <img src="assets/img/cosmic-play2-sm.webp" alt="Cosmic Chaos gameplay: enemy ships spread across a purple nebula" width="720" height="352" loading="lazy">
+            <img src="assets/img/cosmic-pause-sm.webp" alt="The Cosmic Chaos pause menu, with Resume, Main Menu and Exit buttons" width="720" height="392" loading="lazy">
+            <img src="assets/img/cosmic-title-sm.webp" alt="The Cosmic Chaos title screen, with Start and Exit buttons" width="720" height="392" loading="lazy">
+          </button>
+          <figcaption>
+            <span>Cosmic Chaos · Unity</span>
+            <span class="roll__dots" role="group" aria-label="Choose screenshot"></span>
+          </figcaption>
+          <span hidden data-lb="cosmic" data-src="assets/img/cosmic-play1.webp" data-caption="Cosmic Chaos: dodging a wave"></span>
+          <span hidden data-lb="cosmic" data-src="assets/img/cosmic-play2.webp" data-caption="Cosmic Chaos: a busier moment"></span>
+          <span hidden data-lb="cosmic" data-src="assets/img/cosmic-pause.webp" data-caption="Cosmic Chaos: pause menu"></span>
+          <span hidden data-lb="cosmic" data-src="assets/img/cosmic-title.webp" data-caption="Cosmic Chaos: title screen"></span>
+        </figure>
         <div>
           <h3>Cosmic Chaos</h3>
           <p class="meta">solo · Unity · arcade space shooter · Windows &amp; Linux · released</p>

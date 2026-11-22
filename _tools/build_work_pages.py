@@ -163,7 +163,7 @@ PAGES = [
                 "and performance.",
             ]),
         ],
-        "gallery": [("cosmic1", "gameplay"), ("cosmic2", "a busier moment"), ("cosmic3", "pause menu")],
+        "gallery": [("cosmic-play1", "dodging a wave"), ("cosmic-play2", "a busier moment"), ("cosmic-pause", "pause menu"), ("cosmic-title", "title screen")],
         "side": "it's free on itch for Windows and Linux",
         "honest": "The itch.io page marks this game as AI-assisted for code.",
     },
