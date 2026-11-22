@@ -277,8 +277,12 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
   .polaroid, .wall button:hover .polaroid { transition: none; }
 }
 
-/* Case study: from sketch to build */
+/* Case study: from sketch to build, one rolling postcard per stage */
 .cs-process { margin-top: 36px; padding-top: 26px; border-top: 1px dashed var(--line); }
-.cs-process h3.hand { font-size: 27px; margin: 26px 0 4px; }
-.cs-process h3.hand:first-of-type { margin-top: 6px; }
+.cs-process__rolls { display: grid; gap: 30px 26px; margin-top: 8px; }
+@media (min-width: 900px) { .cs-process__rolls { grid-template-columns: repeat(3, 1fr); } }
+.cs-stage h3.hand { font-size: 27px; margin: 0 0 10px; }
+.roll--soft .roll__frame { background: #e9e3d6; }
+.roll--soft .roll__frame img { object-fit: contain; }
+.roll--soft figcaption { align-items: flex-start; font-size: 15px; min-height: 2.6em; }
 .roll.entry__media { cursor: default; }

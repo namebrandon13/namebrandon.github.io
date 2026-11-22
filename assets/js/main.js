@@ -30,6 +30,7 @@
   document.querySelectorAll('[data-roll]').forEach((roll) => {
     const imgs = [...roll.querySelectorAll('.roll__frame img')];
     const dotsWrap = roll.querySelector('.roll__dots');
+    const capEl = roll.querySelector('[data-roll-cap]');
     if (imgs.length < 2) return;
     let cur = 0, timer = null, paused = false, visible = true;
     const dots = imgs.map((img, i) => {
@@ -47,6 +48,7 @@
         if (j === cur) img.loading = 'eager';
       });
       dots.forEach((d, j) => d.setAttribute('aria-current', String(j === cur)));
+      if (capEl && imgs[cur].dataset.cap) capEl.textContent = imgs[cur].dataset.cap;
     };
     const tick = () => { if (!paused && visible && !document.hidden) show(cur + 1); };
     const restart = () => { clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, 3800); };
@@ -62,7 +64,8 @@
       new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(roll);
     }
     show(0);
-    restart();
+    // data-roll-offset staggers postcards that sit side by side so they don't all change at once
+    setTimeout(restart, Number(roll.dataset.rollOffset) || 0);
   });
 
   // Lightbox: any element with data-lb="group" and data-src opens; groups are built from the page
