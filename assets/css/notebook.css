@@ -305,3 +305,12 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
   .pile__card.is-back { transform: translate(20px, -21px) rotate(3.4deg); }
 }
 @media (prefers-reduced-motion: reduce) { .pile__card { transition: none; } }
+
+/* Small rolling postcard inside the smaller-projects checklist */
+.checklist li.checklist__shot { display: grid; gap: 22px; align-items: start; }
+@media (min-width: 700px) { .checklist li.checklist__shot { grid-template-columns: 1fr 250px; gap: 32px; } }
+.roll--mini { max-width: 280px; padding: 7px 7px 8px; margin: 6px 0 4px; }
+.roll--mini::before, .roll--mini::after { width: 58px; height: 18px; top: -9px; }
+.roll--mini figcaption { font-size: 14px; margin-top: 4px; min-height: 2.4em; gap: 8px; }
+.roll--mini .roll__dots { gap: 5px; }
+.roll--mini .roll__dots button { width: 10px; height: 10px; }
