@@ -4,6 +4,8 @@ Every fact here comes from Brandon's CV (data/build_master_cv.py, Brandon Rodrig
 itch.io pages. Edit the text here, then run:  python _tools/build_work_pages.py
 Jekyll ignores folders starting with "_", so this script is not published on GitHub Pages.
 """
+import hashlib
+import re
 from html import escape
 from pathlib import Path
 
@@ -174,7 +176,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/notebook.css">
+<link rel="stylesheet" href="../assets/css/notebook.css?v={css_v}">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -202,10 +204,27 @@ FOOT = """</main>
   <figure class="lightbox__stage"></figure>
   <button class="lightbox__nav lightbox__next" aria-label="Next">›</button>
 </dialog>
-<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/main.js?v={js_v}" defer></script>
 </body>
 </html>
 """
+
+def _short_hash(path):
+    return hashlib.md5((ROOT / path).read_bytes()).hexdigest()[:8]
+
+
+# Cache-busting: ?v=<hash of the file> changes whenever the CSS/JS changes, so browsers never mix old and new files
+CSS_V = _short_hash("assets/css/notebook.css")
+JS_V = _short_hash("assets/js/main.js")
+
+
+def stamp_index():
+    idx = ROOT / "index.html"
+    t = idx.read_text(encoding="utf-8")
+    t = re.sub(r'assets/css/notebook\.css(\?v=[0-9a-f]+)?"', f'assets/css/notebook.css?v={CSS_V}"', t)
+    t = re.sub(r'assets/js/main\.js(\?v=[0-9a-f]+)?"', f'assets/js/main.js?v={JS_V}"', t)
+    idx.write_text(t, encoding="utf-8")
+
 
 RAGE_SKETCH = (ROOT / "index.html").read_text(encoding="utf-8").split('<div class="sketch">', 1)[1].split("</div>", 1)[0]
 
@@ -220,7 +239,7 @@ def build(i, page):
     prev_p = PAGES[i - 1]
     next_p = PAGES[(i + 1) % len(PAGES)]
     og = f"assets/img/{page['gallery'][0][0]}.webp" if page["gallery"] else "assets/img/og.jpg"
-    out = [HEAD.format(title=escape(page["title"]), desc=escape(page["lede"]), site=SITE, slug=page["slug"], og=og)]
+    out = [HEAD.format(css_v=CSS_V, title=escape(page["title"]), desc=escape(page["lede"]), site=SITE, slug=page["slug"], og=og)]
     out.append('<div class="wrap">')
     out.append('<header class="cs-head"><a class="back" href="../#work">← all work</a>')
     out.append(f"<h1>{escape(page['title'])}</h1><p class='lede'>{escape(page['lede'])}</p>")
@@ -254,12 +273,14 @@ def build(i, page):
     out.append(f"<nav class='cs-next' aria-label='More projects'><a href='{prev_p['slug']}.html'>← {escape(prev_p['title'])}</a>"
                f"<a href='{next_p['slug']}.html'>{escape(next_p['title'])} →</a></nav>")
     out.append("</div>")
-    out.append(FOOT)
+    out.append(FOOT.format(js_v=JS_V))
     (ROOT / "work" / f"{page['slug']}.html").write_text("\n".join(out), encoding="utf-8")
 
 
 if __name__ == "__main__":
     (ROOT / "work").mkdir(exist_ok=True)
+    stamp_index()
+    print("index.html: css", CSS_V, "js", JS_V)
     for i, p in enumerate(PAGES):
         build(i, p)
         print("work/" + p["slug"] + ".html")
