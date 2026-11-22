@@ -120,19 +120,20 @@ PAGES = [
         "honest": "The slicing, soft-body and fracture code started from open-source work (the EzySlice library and a "
                   "Valem tutorial, Unity-SoftBody-physics, and Unity Libre Fracture). My part was adapting and extending "
                   "it and building the game around it.",
-        "gallery": [("vr-final3", "the punching bag, with the Chaos zone behind")],  # the rest are in the final-build postcard
+        "gallery": [("vr-final3", "the punching bag, with the Chaos zone behind"),
+                    ("vr-final2", "Knockdown"),
+                    ("vr-final4", "the Break Zone, from the Chaos zone"),
+                    ("vr-final5", "Axe Throw"),
+                    ("vr-final1", "the demo room")],
         "process": [
-            ("1 · on paper", [("vr-sketch-plan", "the first floor plan: six zones"),
+            ("1 · on paper", [("vr-sketch-plan", "the first floor plan, with six zones"),
                               ("vr-sketch-3d", "the same room, sketched in 3D")]),
             ("2 · Blender blockout", [("vr-blockout1", "Knockdown, still an empty table"),
                                       ("vr-blockout2", "the punching bag, with the Chaos zone behind"),
                                       ("vr-blockout3", "the Break Zone mat and Ice Sculpting"),
                                       ("vr-blockout4", "the way to Axe Throw")]),
-            ("3 · final build in Unity", [("vr-final3", "the punching bag, with the Chaos zone behind"),
-                                          ("vr-final2", "Knockdown, stacked and ready"),
-                                          ("vr-final4", "the Break Zone, from the Chaos zone"),
-                                          ("vr-final5", "Axe Throw"),
-                                          ("vr-final1", "the demo room")]),
+            ("3 · final build in Unity", [("vr-final3", "the punching bag, now pink and squishy"),
+                                          ("vr-final4", "Break Zone and the Chaos zone, filled in")]),
         ],
         "side": "it started as a pencil floor plan. the whole journey from sketch to build is further down",
     },
@@ -311,21 +312,14 @@ def build(i, page):
 
     if page.get("process"):
         out.append("<section class='cs-process' aria-labelledby='process-h'><h2 class='label' id='process-h'>from sketch to build</h2>")
-        out.append("<div class='cs-process__rolls'>")
-        for s, (stage, shots) in enumerate(page["process"]):
-            tilt = ("tilt-l", "tilt-r")[s % 2]
-            imgs = "".join(
-                f"<img{' class=is-on' if n == 0 else ''} src='../assets/img/{key}-sm.webp' data-cap='{escape(cap)}' "
-                f"alt='{escape(page['title'])}, {escape(stage)}: {escape(cap)}' loading='lazy'>"
-                for n, (key, cap) in enumerate(shots))
-            lbs = "".join(f"<span hidden data-lb='p{s}' data-src='../assets/img/{key}.webp' data-caption='{escape(stage)}: {escape(cap)}'></span>"
-                          for key, cap in shots)
-            out.append(f"<div class='cs-stage'><h3 class='hand'>{escape(stage)}</h3>"
-                       f"<figure class='taped {tilt} roll roll--soft' data-roll data-roll-offset='{s * 1300}' aria-roledescription='slideshow' aria-label='{escape(stage)}'>"
-                       f"<button type='button' class='roll__frame' aria-label='View this image larger'>{imgs}</button>"
-                       f"<figcaption><span data-roll-cap>{escape(shots[0][1])}</span><span class='roll__dots' role='group' aria-label='Choose image'></span></figcaption>"
-                       f"{lbs}</figure></div>")
-        out.append("</div>")
+        for stage, shots in page["process"]:
+            out.append(f"<h3 class='hand'>{escape(stage)}</h3><div class='cs-gallery'>")
+            for n, (key, cap) in enumerate(shots):
+                tilt = "tilt-l" if n % 2 == 0 else "tilt-r"
+                out.append(f"<button data-lb='p' data-src='../assets/img/{key}.webp' data-caption='{escape(cap)}'>"
+                           f"<figure class='taped {tilt}'><img src='../assets/img/{key}-sm.webp' alt='{escape(page['title'])}: {escape(cap)}' loading='lazy'>"
+                           f"<figcaption>{escape(cap)}</figcaption></figure></button>")
+            out.append("</div>")
         out.append("</section>")
 
     out.append(f"<nav class='cs-next' aria-label='More projects'><a href='{prev_p['slug']}.html'>← {escape(prev_p['title'])}</a>"

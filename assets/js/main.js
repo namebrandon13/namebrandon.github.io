@@ -50,12 +50,20 @@
       dots.forEach((d, j) => d.setAttribute('aria-current', String(j === cur)));
       if (capEl && imgs[cur].dataset.cap) capEl.textContent = imgs[cur].dataset.cap;
     };
-    const tick = () => { if (!paused && visible && !document.hidden) show(cur + 1); };
+    // In a pile only the front card moves; when it runs out of images the pile may bring the next draft forward
+    const asleep = () => roll.classList.contains('pile__card') && !roll.classList.contains('is-front');
+    const tick = () => {
+      if (paused || !visible || document.hidden || asleep()) return;
+      const next = (cur + 1) % imgs.length;
+      if (next === 0 && !roll.dispatchEvent(new CustomEvent('roll:wrap', { bubbles: true, cancelable: true }))) return;
+      show(next);
+    };
     const restart = () => { clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, 3800); };
     // Clicking the frame opens the current screenshot in the lightbox (hidden [data-lb] items, same order)
     const frame = roll.querySelector('.roll__frame');
     const lbItems = roll.querySelectorAll('[data-lb]');
     if (frame.tagName === 'BUTTON' && lbItems.length) frame.addEventListener('click', () => lbItems[cur]?.click());
+    roll.addEventListener('roll:reset', () => { show(0); restart(); });
     roll.addEventListener('mouseenter', () => { paused = true; });
     roll.addEventListener('mouseleave', () => { paused = false; });
     roll.addEventListener('focusin', () => { paused = true; });
@@ -66,6 +74,48 @@
     show(0);
     // data-roll-offset staggers postcards that sit side by side so they don't all change at once
     setTimeout(restart, Number(roll.dataset.rollOffset) || 0);
+  });
+
+  // Stacked pile of postcards (one per draft): the tags or a click on a card behind bring that card to the front.
+  // The front card rotates its own images; when it has shown them all, the next draft comes forward.
+  document.querySelectorAll('[data-pile]').forEach((pile) => {
+    const cards = [...pile.querySelectorAll('.pile__card')];
+    const depth = ['is-front', 'is-mid', 'is-back'];
+    // Story order for auto-advance: sketch, blockout, final, then round again
+    const story = ['sketch', 'blockout', 'final'].map((k) => pile.querySelector(`.pile__card--${k}`)).filter(Boolean);
+    let stack = depth.map((d) => pile.querySelector(`.pile__card.${d}`)).filter(Boolean);
+    const sync = () => {
+      stack.forEach((c, i) => {
+        c.classList.remove(...depth);
+        c.classList.add(depth[i] || 'is-back');
+        const front = i === 0;
+        c.querySelectorAll('.roll__frame, .roll__dots button').forEach((b) => { b.tabIndex = front ? 0 : -1; });
+        const tab = pile.querySelector(`.pile__tabs [data-for="${c.className.match(/pile__card--(\w+)/)[1]}"]`);
+        if (tab) tab.setAttribute('aria-pressed', String(front));
+      });
+    };
+    const toFront = (card) => {
+      if (stack[0] === card) return;
+      stack = [card, ...stack.filter((c) => c !== card)];
+      sync();
+      card.dispatchEvent(new CustomEvent('roll:reset'));
+    };
+    cards.forEach((card) => {
+      // A click anywhere on a card behind brings it forward instead of opening the lightbox
+      card.addEventListener('click', (e) => {
+        if (card === stack[0]) return;
+        e.preventDefault(); e.stopImmediatePropagation();
+        toFront(card);
+      }, true);
+    });
+    pile.querySelectorAll('.pile__tabs [data-for]').forEach((tab) => {
+      tab.addEventListener('click', () => toFront(pile.querySelector(`.pile__card--${tab.dataset.for}`)));
+    });
+    pile.addEventListener('roll:wrap', (e) => {
+      e.preventDefault();
+      toFront(story[(story.indexOf(e.target) + 1) % story.length]);
+    });
+    sync();
   });
 
   // Lightbox: any element with data-lb="group" and data-src opens; groups are built from the page

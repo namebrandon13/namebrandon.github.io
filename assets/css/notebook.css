@@ -277,12 +277,31 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
   .polaroid, .wall button:hover .polaroid { transition: none; }
 }
 
-/* Case study: from sketch to build, one rolling postcard per stage */
+/* Case study: from sketch to build */
 .cs-process { margin-top: 36px; padding-top: 26px; border-top: 1px dashed var(--line); }
-.cs-process__rolls { display: grid; gap: 30px 26px; margin-top: 8px; }
-@media (min-width: 900px) { .cs-process__rolls { grid-template-columns: repeat(3, 1fr); } }
-.cs-stage h3.hand { font-size: 27px; margin: 0 0 10px; }
+.cs-process h3.hand { font-size: 27px; margin: 26px 0 4px; }
+.cs-process h3.hand:first-of-type { margin-top: 6px; }
 .roll--soft .roll__frame { background: #e9e3d6; }
 .roll--soft .roll__frame img { object-fit: contain; }
 .roll--soft figcaption { align-items: flex-start; font-size: 15px; min-height: 2.6em; }
 .roll.entry__media { cursor: default; }
+
+/* Home: VR Rage Room drafts as a pile of postcards */
+.pile { display: grid; padding: 34px 34px 0 0; }
+.pile__card { grid-area: 1 / 1; transition: transform .5s ease, filter .5s ease; transform-origin: 50% 60%; }
+.pile__card.is-front { z-index: 3; transform: rotate(-1.2deg); }
+.pile__card.is-mid { z-index: 2; transform: translate(16px, -16px) rotate(2deg); filter: brightness(.96); cursor: pointer; }
+.pile__card.is-back { z-index: 1; transform: translate(32px, -30px) rotate(4.5deg); filter: brightness(.92); cursor: pointer; }
+.pile__card:not(.is-front) .roll__frame { cursor: pointer; }
+.pile__card:not(.is-front):hover { filter: none; }
+.pile__tabs { grid-area: 2 / 1; margin: 16px 0 0; font-family: var(--hand); font-size: 21px; color: var(--ink-soft); }
+.pile__tabs button { font: inherit; font-weight: 600; color: var(--ink-soft); background: none; border: 0; padding: 2px 4px; cursor: pointer;
+  text-decoration: underline wavy transparent; text-underline-offset: 5px; }
+.pile__tabs button:hover, .pile__tabs button:focus-visible { color: var(--red); }
+.pile__tabs button[aria-pressed="true"] { color: var(--red); text-decoration-color: var(--red); }
+@media (max-width: 599px) {
+  .pile { padding: 24px 22px 0 0; }
+  .pile__card.is-mid { transform: translate(10px, -11px) rotate(1.6deg); }
+  .pile__card.is-back { transform: translate(20px, -21px) rotate(3.4deg); }
+}
+@media (prefers-reduced-motion: reduce) { .pile__card { transition: none; } }
