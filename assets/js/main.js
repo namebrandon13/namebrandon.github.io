@@ -25,6 +25,42 @@
     videos.forEach((v) => vo.observe(v));
   }
 
+  // Rolling postcards: cross-fade every few seconds; pause on hover/focus, off screen or in a hidden tab.
+  // With reduced motion it never advances by itself, but the dots still work.
+  document.querySelectorAll('[data-roll]').forEach((roll) => {
+    const imgs = [...roll.querySelectorAll('.roll__frame img')];
+    const dotsWrap = roll.querySelector('.roll__dots');
+    if (imgs.length < 2) return;
+    let cur = 0, timer = null, paused = false, visible = true;
+    const dots = imgs.map((img, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', `Screenshot ${i + 1} of ${imgs.length}`);
+      b.addEventListener('click', () => { show(i); restart(); });
+      dotsWrap.append(b);
+      return b;
+    });
+    const show = (i) => {
+      cur = (i + imgs.length) % imgs.length;
+      imgs.forEach((img, j) => {
+        img.classList.toggle('is-on', j === cur);
+        if (j === cur) img.loading = 'eager';
+      });
+      dots.forEach((d, j) => d.setAttribute('aria-current', String(j === cur)));
+    };
+    const tick = () => { if (!paused && visible && !document.hidden) show(cur + 1); };
+    const restart = () => { clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, 3800); };
+    roll.addEventListener('mouseenter', () => { paused = true; });
+    roll.addEventListener('mouseleave', () => { paused = false; });
+    roll.addEventListener('focusin', () => { paused = true; });
+    roll.addEventListener('focusout', () => { paused = false; });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(roll);
+    }
+    show(0);
+    restart();
+  });
+
   // Lightbox: any element with data-lb="group" and data-src opens; groups are built from the page
   const box = document.querySelector('.lightbox');
   if (!box) return;
