@@ -276,3 +276,8 @@ mark { background: linear-gradient(100deg, transparent 0 2%, var(--hl) 3% 96%, t
 @media (prefers-reduced-motion: reduce) {
   .polaroid, .wall button:hover .polaroid { transition: none; }
 }
+
+/* Case study: from sketch to build */
+.cs-process { margin-top: 36px; padding-top: 26px; border-top: 1px dashed var(--line); }
+.cs-process h3.hand { font-size: 27px; margin: 26px 0 4px; }
+.cs-process h3.hand:first-of-type { margin-top: 6px; }

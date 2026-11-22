@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/notebook.css?v=5de7fea9">
+<link rel="stylesheet" href="assets/css/notebook.css?v=47855e8e">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Brandon Rodrigues","jobTitle":"Games & Real-Time 3D Developer","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"},"alumniOf":"City St George's, University of London","url":"https://namebrandon13.github.io/namebrandon.github.io/","sameAs":["https://www.linkedin.com/in/brandon-rodrigues-935762180","https://github.com/namebrandon13","https://name-brandon.itch.io/"]}
 </script>
@@ -120,28 +120,26 @@
       </article>
 
       <article class="entry">
-        <a class="entry__media" href="work/vr-rage-room.html" aria-label="Read about VR Rage Room">
-          <figure class="taped tilt-r">
-            <div class="sketch">
-              <svg viewBox="0 0 420 262" aria-hidden="true">
-                <path d="M18 40 Q 16 22 34 22 L 122 24 Q 138 24 136 40 L 134 78 Q 134 92 120 92 L 32 90 Q 18 90 18 76 Z"/>
-                <text x="36" y="52">VR headset</text><text x="36" y="76">or flatscreen</text>
-                <path d="M140 58 C 160 56, 172 58, 190 60" class="red"/><path d="M182 52 L 192 60 L 181 67" class="red"/>
-                <path d="M196 26 Q 196 14 212 16 L 388 18 Q 404 18 402 34 L 400 92 Q 400 106 386 104 L 210 102 Q 196 102 196 88 Z"/>
-                <text x="214" y="48">smash things</text><text x="214" y="72">soft-body physics +</text><text x="214" y="94">procedural destruction</text>
-                <path d="M300 112 C 300 130, 298 146, 300 164" class="red"/><path d="M292 156 L 300 166 L 308 156" class="red"/>
-                <path d="M196 176 Q 196 166 210 166 L 388 168 Q 402 168 400 182 L 398 232 Q 398 244 384 244 L 210 242 Q 196 242 196 230 Z"/>
-                <text x="214" y="196">log what the player did</text><text x="214" y="220">→ UX + gameplay data</text>
-                <text x="22" y="190" class="red">held at a stable</text><text x="22" y="214" class="red">90 FPS on mid-tier PCs</text>
-              </svg>
-            </div>
-            <figcaption>how it fits together (screenshots coming)</figcaption>
-          </figure>
-        </a>
+        <figure class="taped tilt-r roll" data-roll aria-roledescription="slideshow" aria-label="VR Rage Room screenshots">
+          <button type="button" class="roll__frame" aria-label="View this screenshot larger">
+            <img class="is-on" src="assets/img/vr-final3-sm.webp" alt="The punching bag in the middle of the room, with the Chaos zone behind it" width="720" height="368" loading="lazy">
+            <img src="assets/img/vr-final2-sm.webp" alt="The Knockdown zone: a pyramid of white boxes waiting to be knocked over" width="720" height="373" loading="lazy">
+            <img src="assets/img/vr-final4-sm.webp" alt="The Break Zone and its spiked mat, seen from the Chaos zone" width="720" height="367" loading="lazy">
+            <img src="assets/img/vr-final5-sm.webp" alt="The Axe Throw target, with a table of throwing balls nearby" width="720" height="373" loading="lazy">
+          </button>
+          <figcaption>
+            <span>VR Rage Room · Unity</span>
+            <span class="roll__dots" role="group" aria-label="Choose screenshot"></span>
+          </figcaption>
+          <span hidden data-lb="rage" data-src="assets/img/vr-final3.webp" data-caption="VR Rage Room: the punching bag and the Chaos zone"></span>
+          <span hidden data-lb="rage" data-src="assets/img/vr-final2.webp" data-caption="VR Rage Room: Knockdown"></span>
+          <span hidden data-lb="rage" data-src="assets/img/vr-final4.webp" data-caption="VR Rage Room: the Break Zone, from the Chaos zone"></span>
+          <span hidden data-lb="rage" data-src="assets/img/vr-final5.webp" data-caption="VR Rage Room: Axe Throw"></span>
+        </figure>
         <div>
           <h3>VR Rage Room</h3>
           <p class="meta">solo · Unity · VR · MSc dissertation · 2024</p>
-          <p>My MSc dissertation: a rage room you can play in VR or on a flat screen, built to study how people respond emotionally to breaking things. Everything breaks with soft-body physics and procedural destruction, and every session is logged for analysis. I made it on my own, every 3D model included.</p>
+          <p>My MSc dissertation: a rage room you can play in VR or on a flat screen, built to compare how people feel after each. There are six zones: slice things with a sword, dent a soft-body punching bag, shatter plates, knock down a stack of boxes, throw axes, or do all of it at once in the Chaos zone. I made it on my own, every 3D model included.</p>
           <p>The hardest part was getting the physics right while holding a <mark>stable 90 FPS on mid-tier hardware</mark>, which I got to with custom collision meshes.</p>
           <div class="entry__foot"><a href="work/vr-rage-room.html">read the write-up →</a></div>
         </div>

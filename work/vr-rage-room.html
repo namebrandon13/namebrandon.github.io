@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VR Rage Room · Brandon Rodrigues</title>
-<meta name="description" content="My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to study how people respond.">
+<meta name="description" content="My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to compare how people feel after each.">
 <meta name="theme-color" content="#f3eee3">
 <link rel="canonical" href="https://namebrandon13.github.io/namebrandon.github.io/work/vr-rage-room.html">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VR Rage Room · Brandon Rodrigues">
-<meta property="og:description" content="My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to study how people respond.">
+<meta property="og:description" content="My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to compare how people feel after each.">
 <meta property="og:url" content="https://namebrandon13.github.io/namebrandon.github.io/work/vr-rage-room.html">
-<meta property="og:image" content="https://namebrandon13.github.io/namebrandon.github.io/assets/img/og.jpg">
+<meta property="og:image" content="https://namebrandon13.github.io/namebrandon.github.io/assets/img/vr-final3.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/notebook.css?v=5de7fea9">
+<link rel="stylesheet" href="../assets/css/notebook.css?v=47855e8e">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -36,30 +36,42 @@
 
 <div class="wrap">
 <header class="cs-head"><a class="back" href="../#work">← all work</a>
-<h1>VR Rage Room</h1><p class='lede'>My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to study how people respond.</p>
-<dl class='spec'><dt>my role</dt><dd>Solo: design, programming, testing and every 3D model (made in Blender)</dd><dt>engine</dt><dd>Unity</dd><dt>platform</dt><dd>VR headset and flatscreen (dual mode)</dd><dt>context</dt><dd>MSc Computer Games Technology dissertation, City St George's, University of London</dd><dt>year</dt><dd>2024</dd></dl></header>
+<h1>VR Rage Room</h1><p class='lede'>My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to compare how people feel after each.</p>
+<dl class='spec'><dt>my role</dt><dd>Solo: design, programming, testing and every 3D model (made in Blender)</dd><dt>engine</dt><dd>Unity, with the XR Interaction Toolkit</dd><dt>platform</dt><dd>VR headset and flatscreen (dual mode)</dd><dt>context</dt><dd>MSc Computer Games Technology dissertation, City St George's, University of London</dd><dt>playtest</dt><dd>8 players, each played both versions</dd><dt>year</dt><dd>2024</dd></dl></header>
 <div class='cs-body'><article>
-<h2>The idea</h2><p>A rage room simulation you can play in VR or on a normal screen. The point wasn&#x27;t only to make breaking things feel good: it was a research tool for analysing people&#x27;s emotional responses, so the same experience had to work in both modes and record what players did.</p>
-<h2>What I built</h2><ul><li>Real-time destruction: procedural destruction plus soft-body physics, so objects deform and break</li><li>A VR input loop that responds to the player&#x27;s real-time motion, with physics-based feedback</li><li>A flatscreen mode running the same simulation, for comparison</li><li>A UX testing framework, with gameplay-data analysis of each session</li><li>Every 3D model in the room, made in Blender</li></ul>
-<h2>The hardest part: getting the physics right</h2><p>Making things deform and break convincingly was the hardest part, and it all had to run in VR. Dropped frames in a headset are uncomfortable, so the target was a stable 90 FPS. I got there on mid-tier hardware through custom collision mesh design.</p>
-<h2>What I&#x27;d do differently</h2><p>Split it into different rooms, each built around a different kind of physics, instead of having one room handle everything. Each room could then be tuned on its own.</p>
-<h2>How it turned out</h2><p>The project was part of an MSc I finished with a Distinction (71.53%). Holding VR scenes at 90 FPS is now part of my job at Candela.</p>
+<h2>The idea</h2><p>A rage room simulation you can play in VR or on a normal screen. The point wasn&#x27;t only to make breaking things feel good: it was a research tool. The question was whether VR changes how people feel after letting off steam, and whether better physics makes a difference, so the same room had to work in both modes.</p><p>Before building anything I looked at how real rage rooms are set up: what people smash, what they smash it with, and the axe-throwing lanes that often sit next door. That turned into a hand-drawn floor plan with six zones.</p>
+<h2>The room</h2><ul><li>Break Zone: pick up plates and glasses and throw them onto the spiked mat, or smash them with a hammer</li><li>Punching bag: a soft-body bag in the middle of the room that dents when you hit it</li><li>Knockdown: throw balls at a stack of breakable boxes</li><li>Axe Throw: aim for the bullseye</li><li>Ice Sculpting: slice things in two with a sword, or trim the edges with a chipper</li><li>Chaos zone: breakable and soft-body objects all together, to do as you please</li></ul><p>Before the main room there&#x27;s a small demo room for learning the controls. When you&#x27;re ready, you slot a cube into the &#x27;Provide Key&#x27; socket and the wall opens.</p>
+<h2>What I built</h2><ul><li>Slicing: the sword cuts an object in two along the line of your swing. I added a minimum-volume check so pieces can&#x27;t be cut forever, and wrote the chipper, which only trims small slivers when you move slowly</li><li>Soft bodies: the punching bag, plus a sloped object that acts like a trampoline when you toss plates onto it. I added impact sound that gets louder and changes pitch the harder it&#x27;s dented</li><li>Fracture: plates, glasses and blocks break into chunks when they&#x27;re hit hard enough</li><li>A flat-screen version of the same room, with keyboard and mouse controls and swing animations for the hammer and sword</li><li>Every 3D model in the room, kept low-poly and made in Blender</li><li>The playtest: questionnaires and screen recordings for both versions</li></ul>
+<h2>The hardest part: getting the physics right</h2><p>Making things deform and break convincingly was the hardest part, and it all had to run in VR. Dropped frames in a headset are uncomfortable, so the target was a stable 90 FPS. I got there on mid-tier hardware through custom collision mesh design.</p><p>Lighting mattered too. I swapped 14 real-time point lights for over 20 baked area lights, tuned Unity&#x27;s physics settings and put objects on collision layers so things only collide with what they should.</p>
+<h2>What I&#x27;d do differently</h2><p>Split it into different rooms, each built around a different kind of physics, instead of having one room handle everything. Each room could then be tuned on its own.</p><p>I&#x27;d also merge the physics scripts. Slicing, soft bodies and fracture are three separate systems, so a sliced object can&#x27;t then shatter. Players noticed the game could still stutter when lots of things broke at once, and one asked to be able to smash plates against each other.</p>
+<h2>How it turned out</h2><p>Eight people played both versions. VR scored 4.38 out of 5 overall, ahead of the flat screen, and seven of the eight spent longer in VR. Slicing was the favourite. The axe throw turned out too hard: one player kept fetching the axes for another go.</p><p>The project was part of an MSc I finished with a Distinction (71.53%). Holding VR scenes at 90 FPS is now part of my job at Candela.</p>
+<p class='honest'>The slicing, soft-body and fracture code started from open-source work (the EzySlice library and a Valem tutorial, Unity-SoftBody-physics, and Unity Libre Fracture). My part was adapting and extending it and building the game around it.</p>
 </article><aside class='cs-side'>
-<p class='hand'>screenshots and a capture of this are on my list to add</p>
-<figure class='taped tilt-r'><div class='sketch'>
-              <svg viewBox="0 0 420 262" aria-hidden="true">
-                <path d="M18 40 Q 16 22 34 22 L 122 24 Q 138 24 136 40 L 134 78 Q 134 92 120 92 L 32 90 Q 18 90 18 76 Z"/>
-                <text x="36" y="52">VR headset</text><text x="36" y="76">or flatscreen</text>
-                <path d="M140 58 C 160 56, 172 58, 190 60" class="red"/><path d="M182 52 L 192 60 L 181 67" class="red"/>
-                <path d="M196 26 Q 196 14 212 16 L 388 18 Q 404 18 402 34 L 400 92 Q 400 106 386 104 L 210 102 Q 196 102 196 88 Z"/>
-                <text x="214" y="48">smash things</text><text x="214" y="72">soft-body physics +</text><text x="214" y="94">procedural destruction</text>
-                <path d="M300 112 C 300 130, 298 146, 300 164" class="red"/><path d="M292 156 L 300 166 L 308 156" class="red"/>
-                <path d="M196 176 Q 196 166 210 166 L 388 168 Q 402 168 400 182 L 398 232 Q 398 244 384 244 L 210 242 Q 196 242 196 230 Z"/>
-                <text x="214" y="196">log what the player did</text><text x="214" y="220">→ UX + gameplay data</text>
-                <text x="22" y="190" class="red">held at a stable</text><text x="22" y="214" class="red">90 FPS on mid-tier PCs</text>
-              </svg>
-            </div><figcaption>how it fits together</figcaption></figure>
+<p class='hand'>it started as a pencil floor plan. the whole journey from sketch to build is further down</p>
+<button class='entry__media' data-lb='g' data-src='../assets/img/vr-final3.webp' data-caption='the punching bag, with the Chaos zone behind'><figure class='taped tilt-r'><img src='../assets/img/vr-final3-sm.webp' alt='VR Rage Room: the punching bag, with the Chaos zone behind' loading='lazy'><figcaption>the punching bag, with the Chaos zone behind</figcaption></figure></button>
 </aside></div>
+<h2 class='label' style='margin-top:30px'>screenshots</h2><div class='cs-gallery'>
+<button data-lb='g' data-src='../assets/img/vr-final2.webp' data-caption='Knockdown'><figure class='taped tilt-l'><img src='../assets/img/vr-final2-sm.webp' alt='VR Rage Room: Knockdown' loading='lazy'><figcaption>Knockdown</figcaption></figure></button>
+<button data-lb='g' data-src='../assets/img/vr-final4.webp' data-caption='the Break Zone, from the Chaos zone'><figure class='taped tilt-r'><img src='../assets/img/vr-final4-sm.webp' alt='VR Rage Room: the Break Zone, from the Chaos zone' loading='lazy'><figcaption>the Break Zone, from the Chaos zone</figcaption></figure></button>
+<button data-lb='g' data-src='../assets/img/vr-final5.webp' data-caption='Axe Throw'><figure class='taped tilt-l'><img src='../assets/img/vr-final5-sm.webp' alt='VR Rage Room: Axe Throw' loading='lazy'><figcaption>Axe Throw</figcaption></figure></button>
+<button data-lb='g' data-src='../assets/img/vr-final1.webp' data-caption='the demo room'><figure class='taped tilt-r'><img src='../assets/img/vr-final1-sm.webp' alt='VR Rage Room: the demo room' loading='lazy'><figcaption>the demo room</figcaption></figure></button>
+</div>
+<section class='cs-process' aria-labelledby='process-h'><h2 class='label' id='process-h'>from sketch to build</h2>
+<h3 class='hand'>1 · on paper</h3><div class='cs-gallery'>
+<button data-lb='p' data-src='../assets/img/vr-sketch-plan.webp' data-caption='the first floor plan: six zones'><figure class='taped tilt-l'><img src='../assets/img/vr-sketch-plan-sm.webp' alt='VR Rage Room: the first floor plan: six zones' loading='lazy'><figcaption>the first floor plan: six zones</figcaption></figure></button>
+<button data-lb='p' data-src='../assets/img/vr-sketch-3d.webp' data-caption='the same room, sketched in 3D'><figure class='taped tilt-r'><img src='../assets/img/vr-sketch-3d-sm.webp' alt='VR Rage Room: the same room, sketched in 3D' loading='lazy'><figcaption>the same room, sketched in 3D</figcaption></figure></button>
+</div>
+<h3 class='hand'>2 · Blender blockout</h3><div class='cs-gallery'>
+<button data-lb='p' data-src='../assets/img/vr-blockout1.webp' data-caption='Knockdown, still an empty table'><figure class='taped tilt-l'><img src='../assets/img/vr-blockout1-sm.webp' alt='VR Rage Room: Knockdown, still an empty table' loading='lazy'><figcaption>Knockdown, still an empty table</figcaption></figure></button>
+<button data-lb='p' data-src='../assets/img/vr-blockout2.webp' data-caption='the punching bag, with the Chaos zone behind'><figure class='taped tilt-r'><img src='../assets/img/vr-blockout2-sm.webp' alt='VR Rage Room: the punching bag, with the Chaos zone behind' loading='lazy'><figcaption>the punching bag, with the Chaos zone behind</figcaption></figure></button>
+<button data-lb='p' data-src='../assets/img/vr-blockout3.webp' data-caption='the Break Zone mat and Ice Sculpting'><figure class='taped tilt-l'><img src='../assets/img/vr-blockout3-sm.webp' alt='VR Rage Room: the Break Zone mat and Ice Sculpting' loading='lazy'><figcaption>the Break Zone mat and Ice Sculpting</figcaption></figure></button>
+<button data-lb='p' data-src='../assets/img/vr-blockout4.webp' data-caption='the way to Axe Throw'><figure class='taped tilt-r'><img src='../assets/img/vr-blockout4-sm.webp' alt='VR Rage Room: the way to Axe Throw' loading='lazy'><figcaption>the way to Axe Throw</figcaption></figure></button>
+</div>
+<h3 class='hand'>3 · final build in Unity</h3><div class='cs-gallery'>
+<button data-lb='p' data-src='../assets/img/vr-final3.webp' data-caption='the punching bag, now pink and squishy'><figure class='taped tilt-l'><img src='../assets/img/vr-final3-sm.webp' alt='VR Rage Room: the punching bag, now pink and squishy' loading='lazy'><figcaption>the punching bag, now pink and squishy</figcaption></figure></button>
+<button data-lb='p' data-src='../assets/img/vr-final4.webp' data-caption='Break Zone and the Chaos zone, filled in'><figure class='taped tilt-r'><img src='../assets/img/vr-final4-sm.webp' alt='VR Rage Room: Break Zone and the Chaos zone, filled in' loading='lazy'><figcaption>Break Zone and the Chaos zone, filled in</figcaption></figure></button>
+</div>
+</section>
 <nav class='cs-next' aria-label='More projects'><a href='coach-number-11.html'>← Coach Number 11</a><a href='cosmic-chaos.html'>Cosmic Chaos →</a></nav>
 </div>
 </main>

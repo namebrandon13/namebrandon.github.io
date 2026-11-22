@@ -57,42 +57,85 @@ PAGES = [
     {
         "slug": "vr-rage-room",
         "title": "VR Rage Room",
-        "lede": "My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to study how people respond.",
+        "lede": "My MSc dissertation: a room full of things to smash, in VR or on a flat screen, built to compare how people feel after each.",
         "spec": [("my role", "Solo: design, programming, testing and every 3D model (made in Blender)"),
-                 ("engine", "Unity"), ("platform", "VR headset and flatscreen (dual mode)"),
+                 ("engine", "Unity, with the XR Interaction Toolkit"), ("platform", "VR headset and flatscreen (dual mode)"),
                  ("context", "MSc Computer Games Technology dissertation, City St George's, University of London"),
+                 ("playtest", "8 players, each played both versions"),
                  ("year", "2024")],
         "body": [
             ("The idea", [
                 "A rage room simulation you can play in VR or on a normal screen. The point wasn't only to make breaking "
-                "things feel good: it was a research tool for analysing people's emotional responses, so the same "
-                "experience had to work in both modes and record what players did.",
+                "things feel good: it was a research tool. The question was whether VR changes how people feel after "
+                "letting off steam, and whether better physics makes a difference, so the same room had to work in both modes.",
+                "Before building anything I looked at how real rage rooms are set up: what people smash, what they smash it "
+                "with, and the axe-throwing lanes that often sit next door. That turned into a hand-drawn floor plan with six zones.",
+            ]),
+            ("The room", [
+                ("ul", [
+                    "Break Zone: pick up plates and glasses and throw them onto the spiked mat, or smash them with a hammer",
+                    "Punching bag: a soft-body bag in the middle of the room that dents when you hit it",
+                    "Knockdown: throw balls at a stack of breakable boxes",
+                    "Axe Throw: aim for the bullseye",
+                    "Ice Sculpting: slice things in two with a sword, or trim the edges with a chipper",
+                    "Chaos zone: breakable and soft-body objects all together, to do as you please",
+                ]),
+                "Before the main room there's a small demo room for learning the controls. When you're ready, you slot a cube "
+                "into the 'Provide Key' socket and the wall opens.",
             ]),
             ("What I built", [
                 ("ul", [
-                    "Real-time destruction: procedural destruction plus soft-body physics, so objects deform and break",
-                    "A VR input loop that responds to the player's real-time motion, with physics-based feedback",
-                    "A flatscreen mode running the same simulation, for comparison",
-                    "A UX testing framework, with gameplay-data analysis of each session",
-                    "Every 3D model in the room, made in Blender",
+                    "Slicing: the sword cuts an object in two along the line of your swing. I added a minimum-volume check so "
+                    "pieces can't be cut forever, and wrote the chipper, which only trims small slivers when you move slowly",
+                    "Soft bodies: the punching bag, plus a sloped object that acts like a trampoline when you toss plates onto it. "
+                    "I added impact sound that gets louder and changes pitch the harder it's dented",
+                    "Fracture: plates, glasses and blocks break into chunks when they're hit hard enough",
+                    "A flat-screen version of the same room, with keyboard and mouse controls and swing animations for the hammer and sword",
+                    "Every 3D model in the room, kept low-poly and made in Blender",
+                    "The playtest: questionnaires and screen recordings for both versions",
                 ]),
             ]),
             ("The hardest part: getting the physics right", [
                 "Making things deform and break convincingly was the hardest part, and it all had to run in VR. Dropped "
                 "frames in a headset are uncomfortable, so the target was a stable 90 FPS. I got there on mid-tier "
                 "hardware through custom collision mesh design.",
+                "Lighting mattered too. I swapped 14 real-time point lights for over 20 baked area lights, tuned Unity's "
+                "physics settings and put objects on collision layers so things only collide with what they should.",
             ]),
             ("What I'd do differently", [
                 "Split it into different rooms, each built around a different kind of physics, instead of having one "
                 "room handle everything. Each room could then be tuned on its own.",
+                "I'd also merge the physics scripts. Slicing, soft bodies and fracture are three separate systems, so a "
+                "sliced object can't then shatter. Players noticed the game could still stutter when lots of things broke "
+                "at once, and one asked to be able to smash plates against each other.",
             ]),
             ("How it turned out", [
+                "Eight people played both versions. VR scored 4.38 out of 5 overall, ahead of the flat screen, and seven "
+                "of the eight spent longer in VR. Slicing was the favourite. The axe throw turned out too hard: one player "
+                "kept fetching the axes for another go.",
                 "The project was part of an MSc I finished with a Distinction (71.53%). Holding VR scenes at 90 FPS is now "
                 "part of my job at Candela.",
             ]),
         ],
-        "gallery": [],
-        "side": "screenshots and a capture of this are on my list to add",
+        "honest": "The slicing, soft-body and fracture code started from open-source work (the EzySlice library and a "
+                  "Valem tutorial, Unity-SoftBody-physics, and Unity Libre Fracture). My part was adapting and extending "
+                  "it and building the game around it.",
+        "gallery": [("vr-final3", "the punching bag, with the Chaos zone behind"),
+                    ("vr-final2", "Knockdown"),
+                    ("vr-final4", "the Break Zone, from the Chaos zone"),
+                    ("vr-final5", "Axe Throw"),
+                    ("vr-final1", "the demo room")],
+        "process": [
+            ("1 · on paper", [("vr-sketch-plan", "the first floor plan: six zones"),
+                              ("vr-sketch-3d", "the same room, sketched in 3D")]),
+            ("2 · Blender blockout", [("vr-blockout1", "Knockdown, still an empty table"),
+                                      ("vr-blockout2", "the punching bag, with the Chaos zone behind"),
+                                      ("vr-blockout3", "the Break Zone mat and Ice Sculpting"),
+                                      ("vr-blockout4", "the way to Axe Throw")]),
+            ("3 · final build in Unity", [("vr-final3", "the punching bag, now pink and squishy"),
+                                          ("vr-final4", "Break Zone and the Chaos zone, filled in")]),
+        ],
+        "side": "it started as a pencil floor plan. the whole journey from sketch to build is further down",
     },
     {
         "slug": "cosmic-chaos",
@@ -226,7 +269,6 @@ def stamp_index():
     idx.write_text(t, encoding="utf-8")
 
 
-RAGE_SKETCH = (ROOT / "index.html").read_text(encoding="utf-8").split('<div class="sketch">', 1)[1].split("</div>", 1)[0]
 
 
 def render_block(block):
@@ -257,8 +299,6 @@ def build(i, page):
         out.append(f"<button class='entry__media' data-lb='g' data-src='../assets/img/{key}.webp' data-caption='{escape(cap)}'>"
                    f"<figure class='taped tilt-r'><img src='../assets/img/{key}-sm.webp' alt='{escape(page['title'])}: {escape(cap)}' loading='lazy'>"
                    f"<figcaption>{escape(cap)}</figcaption></figure></button>")
-    else:
-        out.append(f"<figure class='taped tilt-r'><div class='sketch'>{RAGE_SKETCH}</div><figcaption>how it fits together</figcaption></figure>")
     out.append("</aside></div>")
 
     if len(page["gallery"]) > 1:
@@ -269,6 +309,18 @@ def build(i, page):
                        f"<figure class='taped {tilt}'><img src='../assets/img/{key}-sm.webp' alt='{escape(page['title'])}: {escape(cap)}' loading='lazy'>"
                        f"<figcaption>{escape(cap)}</figcaption></figure></button>")
         out.append("</div>")
+
+    if page.get("process"):
+        out.append("<section class='cs-process' aria-labelledby='process-h'><h2 class='label' id='process-h'>from sketch to build</h2>")
+        for stage, shots in page["process"]:
+            out.append(f"<h3 class='hand'>{escape(stage)}</h3><div class='cs-gallery'>")
+            for n, (key, cap) in enumerate(shots):
+                tilt = "tilt-l" if n % 2 == 0 else "tilt-r"
+                out.append(f"<button data-lb='p' data-src='../assets/img/{key}.webp' data-caption='{escape(cap)}'>"
+                           f"<figure class='taped {tilt}'><img src='../assets/img/{key}-sm.webp' alt='{escape(page['title'])}: {escape(cap)}' loading='lazy'>"
+                           f"<figcaption>{escape(cap)}</figcaption></figure></button>")
+            out.append("</div>")
+        out.append("</section>")
 
     out.append(f"<nav class='cs-next' aria-label='More projects'><a href='{prev_p['slug']}.html'>← {escape(prev_p['title'])}</a>"
                f"<a href='{next_p['slug']}.html'>{escape(next_p['title'])} →</a></nav>")
