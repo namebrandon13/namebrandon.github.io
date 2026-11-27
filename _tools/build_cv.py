@@ -20,7 +20,8 @@ CONTACT = [
     ("London, UK", None),
     ("brandon13111998@gmail.com", "mailto:brandon13111998@gmail.com"),
     ("linkedin.com/in/brandon-rodrigues-935762180", "https://www.linkedin.com/in/brandon-rodrigues-935762180"),
-    ("Portfolio: namebrandon13.github.io/namebrandon.github.io", "https://namebrandon13.github.io/namebrandon.github.io/"),
+    ("Portfolio: namebrandon13.github.io/namebrandon.github.io/#work", "https://namebrandon13.github.io/namebrandon.github.io/#work"),
+    ("github.com/namebrandon13", "https://github.com/namebrandon13"),
     ("itch.io/name-brandon", "https://name-brandon.itch.io/"),
 ]
 
